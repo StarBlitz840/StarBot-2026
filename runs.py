@@ -6,14 +6,15 @@ from pybricks.tools import wait, StopWatch
 
 hub = PrimeHub()
 
-Left_Wheel = Motor(Port.E, Direction.COUNTERCLOCKWISE)
-Right_Wheel = Motor(Port.A, Direction.CLOCKWISE)
-Right_Arm = Motor(Port.F)
+left_wheel = Motor(Port.E, Direction.COUNTERCLOCKWISE)
+right_wheel = Motor(Port.A)
+right_arm = Motor(Port.F)
 
-chasis = DriveBase(Left_Wheel, Right_Wheel, 80, 80)
+chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 
-def ship():
-    chasis.straight(860)
+def run3():
+    chasis.straight(880)
+    right_arm.run_angle(500, -180)
     chasis.straight(-860)
 
-ship()
+run3()
