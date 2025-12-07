@@ -11,8 +11,12 @@ right_wheel = Motor(Port.A)
 right_arm = Motor(Port.F)
 
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
-
+def run1():
+    right_arm.run_time (10000 ,2000 )
+    right_arm.run_time (-10000 ,2000 )
+# run1()
 def run3():
+
     chasis.straight(880)
     right_arm.run_angle(500, -180)
     chasis.straight(-860)
