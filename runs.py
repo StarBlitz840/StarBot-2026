@@ -7,10 +7,10 @@ from pybricks.tools import hub_menu
 
 hub = PrimeHub()
 
-left_wheel = Motor(Port.E, Direction.COUNTERCLOCKWISE)
-right_wheel = Motor(Port.A)
-left_arm = Motor(Port.B)
-right_arm = Motor(Port.F)
+left_arm = Motor(Port.E)
+right_arm = Motor(Port.A)
+right_wheel = Motor(Port.B)
+left_wheel = Motor(Port.F, Direction.COUNTERCLOCKWISE)
 
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
@@ -27,40 +27,40 @@ def run1():
     right_arm.run_time(-10000 ,2000 )
 
 def run2():
-    chasis.straight(600)
-    chasis.turn(90)
-    chasis.straight(100)
-    chasis.turn(-90)
-    chasis.straight(50)
-    
-    chasis.straight(-150)
-    chasis.straight(100)
-    chasis.straight(-100)
-    chasis.straight(100)
-    chasis.straight(-100)
-    chasis.straight(100)
-    chasis.straight(-100)
-    chasis.straight(100)
-    chasis.straight(-100)
-    chasis.straight(100)
+    chasis.straight(-90)
+    chasis.straight(90)
+    chasis.straight(-90)
+    chasis.straight(90)
+    chasis.straight(-90)
+    chasis.straight(90)
+    chasis.straight(-90)
+    chasis.straight(90)
+    chasis.straight(-90)
+    chasis.straight(90)
+    chasis.straight(-90)
+    chasis.straight(90)
+    chasis.straight(-90)
+    chasis.straight(90)
     # chasis.straight(200)
     # chasis.straight(-200)
 
 def run3():
 
     chasis.straight(880)
-    right_arm.run_angle(500, -180)
+    right_arm.run_angle(500, 180)
     chasis.straight(-860)
 
 
 def run5():
-    chasis.straight(920)
-    chasis.turn(90)
-    chasis.straight(425)
-    chasis.turn(-90)
-    left_arm.run_time(-2000,2500)
-    left_arm.run_time(2000,2500)
-    right_arm.run_time(-300, 5000)
+    # chasis.straight(920)
+    # chasis.turn(90)
+    # chasis.straight(425)
+    # chasis.turn(-90)
+    # left_arm.run_time(-2000,2500)
+    # left_arm.run_time(2000,2500)
+    right_arm.run_time(100, 5000)
+    right_arm.run_time(-250, 1000)
+    right_arm.run_time(250, 1000)
 
 if selected == "1":
     run1()
