@@ -22,9 +22,10 @@ selected = hub_menu("1", "2", "3", "4", "5")
 0
 
 def run1():
-    right_arm.run_time(10000 ,2000 )
-    chasis.straight(600)
-    right_arm.run_time(-10000 ,2000 )
+    chasis.straight(550)
+    for i in range(4):
+        right_arm.run_angle(1000, -180)
+        right_arm.run_angle(1000, 180)
 
 def run2():
     chasis.straight(-90)
@@ -58,9 +59,8 @@ def run5():
     # chasis.turn(-90)
     # left_arm.run_time(-2000,2500)
     # left_arm.run_time(2000,2500)
-    right_arm.run_time(100, 5000)
-    right_arm.run_time(-250, 1000)
-    right_arm.run_time(250, 1000)
+    # right_arm.run_time(100, 5000)
+    right_arm.run_time(250, 10000)
 
 if selected == "1":
     run1()
