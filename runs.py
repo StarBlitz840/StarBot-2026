@@ -21,9 +21,14 @@ selected = hub_menu("1", "2", "3", "4", "5")
 
 
 def run1():
-    right_arm.run_time(10000 ,2000 )
-    chasis.straight(600)
-    right_arm.run_time(-10000 ,2000 )
+    chasis.straight(550)
+    for i in range(4):
+        right_arm.run_time(1000, 1500)
+        right_arm.run_time(1000, 1500)
+    chasis.turn(-40)
+    chasis.straight(85)
+    chasis.turn(40)
+    chasis.straight(220)
 
 def run2():
     chasis.straight(-90)
