@@ -7,10 +7,11 @@ from pybricks.tools import hub_menu
 
 hub = PrimeHub()
 
-left_wheel = Motor(Port.E, Direction.COUNTERCLOCKWISE)
-right_wheel = Motor(Port.A)
-left_arm = Motor(Port.B)
-right_arm = Motor(Port.F)
+left_wheel = Motor(Port.F, Direction.COUNTERCLOCKWISE)
+right_wheel = Motor(Port.B)
+left_arm = Motor(Port.E)
+right_arm = Motor(Port.A)
+map_sensor = ColorSensor(Port.D)
 
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
@@ -19,16 +20,28 @@ chasis.settings(300)
 
 selected = hub_menu("1", "2", "3", "4", "5")
 
+def until_black(): 
+    chasis.drive(100, 0)
+    while map_sensor.color() != Color.NONE:
+        if map_sensor.color()== Color.NONE:
+            break
+        print(map_sensor.color())
+    chasis.stop()
 
 def run1():
-    chasis.straight(550)
+    right_arm.run_time(500, 500)
+    chasis.straight(785)
     for i in range(4):
-        right_arm.run_time(1000, 1500)
-        right_arm.run_time(1000, 1500)
-    chasis.turn(-40)
-    chasis.straight(85)
-    chasis.turn(40)
-    chasis.straight(220)
+        right_arm.run_time(1000, 770)
+        right_arm.run_time(-1000, 735)
+    right_arm.run_angle(400, 80)
+    until_black()
+    chasis.turn(-72)
+    chasis.straight(140)
+    chasis.turn(45)
+    # chasis.straight(95)
+    # chasis.turn(48)
+
 
 def run2():
     chasis.straight(-90)
@@ -56,13 +69,13 @@ def run3():
 
 
 def run5():
-    chasis.straight(920)
+    chasis.straight(820)
     chasis.turn(90)
     chasis.straight(425)
     chasis.turn(-90)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
-    right_arm.run_time(-300, 5000)
+    right_arm.run_time(-600, 5000)
 
 if selected == "1":
     run1()
