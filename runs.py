@@ -21,14 +21,13 @@ chasis.use_gyro(True)
 
 chasis.settings(300)
 
-selected = hub_menu("0", "1", "2", "3", "4", "5", "6")
+selected = hub_menu("1", "2", "3", "4", "5", "6")
 
 def until_black(): 
-    chasis.drive(100, 0)
     while True:
+        chasis.drive(100, 0)
         if map_sensor.reflection() < 12:
-            chasis.stop
-        break
+            break
     chasis.stop()
 
 def run1():
@@ -40,10 +39,10 @@ def run1():
     right_arm.run_time(250, 1700)
     right_arm.run_time(-250, 700)
     chasis.straight(150)
-    chasis.turn(-45)
-    chasis.straight(120)
-    chasis.turn(-45)
-    chasis.straight(1000)
+    chasis.turn(-56)
+    chasis.straight(215)
+    chasis.turn(45)
+    chasis.straight(-1000)
     
     
     
@@ -59,16 +58,16 @@ def run2():
     chasis.turn(80)
     chasis.straight(400)
     chasis.straight(-200)
-    chasis.turn(-85)
-    chasis.straight(200)
-    until_black
+    chasis.turn(-90)
+    until_black()
+    
 
 
 def run3():
 
     chasis.straight(880)
-    right_arm.run_angle(500, -180)
-    chasis.straight(-860)
+    right_arm.run_angle(500, 180)
+    chasis.straight(-1000)
 
 
 def run5():
@@ -90,6 +89,7 @@ def run5():
 
 def run6():
      chasis.straight(790)
+     chasis.straight(-790)
 
 
 if selected == "1":
