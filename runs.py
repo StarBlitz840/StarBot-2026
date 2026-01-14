@@ -12,23 +12,19 @@ right_wheel = Motor(Port.B)
 left_arm = Motor(Port.E)
 right_arm = Motor(Port.A)
 map_sensor = ColorSensor(Port.D)
-arm_sensor = ColorSensor(Port.B)
-
-map_sensor.detectable_colors([Color.BLUE, Color.GRAY, Color.BROWN, Color.ORANGE, Color.RED])
 
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
 
 chasis.settings(300)
 
-selected = hub_menu("1", "2", "3", "4", "5", "D")
+selected = hub_menu("1", "2", "3", "4", "5")
 
 def until_black(): 
     chasis.drive(100, 0)
-    while map_sensor.reflection != 12:
+    while map_sensor.color() != Color.NONE:
         if map_sensor.color()== Color.NONE:
             break
-        print(map_sensor.color())
     chasis.stop()
 
 def run1():
@@ -37,16 +33,16 @@ def run1():
     for i in range(4):
         right_arm.run_time(1000, 770)
         right_arm.run_time(-1000, 735)
-    right_arm.run_angle(400, 100)
+    right_arm.run_angle(400, 80)
     until_black()
-    chasis.turn(-65)
-    chasis.straight(145)
-    chasis.turn(-45)
-    chasis.straight(95)
-    chasis.turn(-100)
+    chasis.turn(-72)
+    chasis.straight(140)
+    chasis.turn(45)
+    # chasis.straight(95)
+    # chasis.turn(48)
 
 
-def run2(): 
+def run2():
     chasis.straight(-90)
     chasis.straight(90)
     chasis.straight(-90)
@@ -67,8 +63,8 @@ def run2():
 def run3():
 
     chasis.straight(880)
-    right_arm.run_angle(500, -180)
-    chasis.straight(-860)
+    right_arm.run_angle(500, 180)
+    chasis.straight(-1000)
 
 
 def run4():
@@ -76,9 +72,22 @@ def run4():
     chasis.turn(90)
     chasis.straight(425)
     chasis.turn(-90)
+    chasis.straight(110)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
-    right_arm.run_time(-600, 5000)
+    chasis.straight(-110)
+    chasis.turn(90)
+    chasis.straight(-530)
+    chasis.turn(45)
+    chasis.straight(-290)
+    chasis.straight(290)
+    chasis.turn(45)
+    chasis.straight(850)
+
+def run6():
+     chasis.straight(790)
+     chasis.straight(-790)
+
 
 def run5():
     chasis.straight(790)
@@ -89,7 +98,8 @@ def detect_run():
     #elif
 
 if selected == "1":
-    run1()
+    while True:
+        run1()
 
 if selected == "2":
     run2()
@@ -105,3 +115,6 @@ if selected == "5":
 
 if selected == "D":
     detect_run()
+
+if selected == "6":
+    run6()
