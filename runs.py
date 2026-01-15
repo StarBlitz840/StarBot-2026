@@ -16,7 +16,7 @@ map_sensor = ColorSensor(Port.D)
 arm_sensor = ColorSensor(Port.C)
 
 # Define available colors for runs
-arm_sensor.detectable_colors([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GRAY, Color.YELLOW])
+arm_sensor.detectable_colors([Color.BLUE, Color.ORANGE, Color.GREEN, Color.BROWN, Color.YELLOW])
 
 #Define chasis
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
@@ -25,8 +25,8 @@ chasis.use_gyro(True)
 chasis.settings(300)
 
 #Define available runs
-# selected = hub_menu("R", "1", "2", "3", "4", "5", "6", "7")
-selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GRAY, Color.YELLOW])
+selected = hub_menu("R", "1", "2", "3", "4", "5", "6", "7")
+# selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
 
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
@@ -118,11 +118,24 @@ def run6():
      chasis.straight(-790)
 
 def select_run_by_color():
+    print(arm_sensor.color(True))
     # This function uses the arm color sensor to automatically start its run. *STILL IN DEVELOPMENT!*
-    if arm_sensor.color() == Color.BLUE:
+    if arm_sensor.color(True) == Color.GRAY:
+        # run1()
+        print # temporary
+    elif arm_sensor.color(True) == Color.YELLOW:
+        run2()
+    elif arm_sensor.color(True) == Color.BLUE:
         run3()
+    elif arm_sensor.color(True) == Color.MAGENTA:
+        # run4()
+        print # Temporary hotfix until we make run4()
+    elif arm_sensor.color(True) == Color.ORANGE:
+        run5()
+    elif arm_sensor.color(True) == Color.BROWN:
+        run6()
 
-# This block of code runs the functions based on user input.
+# This block of code runs functions based on user input.
 if selected == "1":
     while True:
         run1()
@@ -135,7 +148,7 @@ if selected == "3":
 
 if selected == "5":
     run5()
-
+    
 if selected == "6":
     run6()
 
