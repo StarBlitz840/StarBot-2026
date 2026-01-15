@@ -35,7 +35,7 @@ def until_black(p_speed):
     # Main loop, constantly checking if said condition is met.
     while True:
         if map_sensor.reflection() < 12:
-            chasis.stop()
+            chasis.stop() 
             break
         cycles += 1
     return cycles
@@ -82,7 +82,7 @@ def run2():
     chasis.straight(-250)
     chasis.turn(50)
     chasis.settings(350,100)
-    chasis.straight(1000)
+    chasis.straight(1200)
 
     
 
