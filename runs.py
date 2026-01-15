@@ -7,67 +7,95 @@ from pybricks.tools import hub_menu
 
 hub = PrimeHub()
 
+# Define attatchments
 left_wheel = Motor(Port.F, Direction.COUNTERCLOCKWISE)
 right_wheel = Motor(Port.B)
 left_arm = Motor(Port.E)
 right_arm = Motor(Port.A)
 map_sensor = ColorSensor(Port.D)
+arm_sensor = ColorSensor(Port.C)
 
+# Define available colors for runs
+arm_sensor.detectable_colors([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GRAY, Color.YELLOW])
+
+#Define chasis
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
 
 chasis.settings(300)
 
-selected = hub_menu("1", "2", "3", "4", "5")
+#Define available runs
+# selected = hub_menu("R", "1", "2", "3", "4", "5", "6", "7")
+selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GRAY, Color.YELLOW])
 
-def until_black(): 
-    chasis.drive(100, 0)
-    while map_sensor.color() != Color.NONE:
-        if map_sensor.color()== Color.NONE:
+def until_black(p_speed): 
+    # This function moves the robot until it is over a black line.
+    cycles = 0
+    chasis.drive(p_speed, 0)
+    # Main loop, constantly checking if said condition is met.
+    while True:
+        if map_sensor.reflection() < 12:
+            chasis.stop()
             break
-    chasis.stop()
+        cycles += 1
+    return cycles
 
 def run1():
+    # This run completes the Silo (8) and the Forge (6).
     right_arm.run_time(500, 500)
     chasis.straight(785)
+    # Hits the Silo arm 4 times.
     for i in range(4):
-        right_arm.run_time(1000, 770)
-        right_arm.run_time(-1000, 735)
-    right_arm.run_angle(400, 80)
-    until_black()
-    chasis.turn(-72)
-    chasis.straight(140)
+        right_arm.run_time(1200, 790)
+        right_arm.run_time(-1100, 755)
+    right_arm.run_time(250, 1700)
+    right_arm.run_time(-250, 700)
+    chasis.straight(150)
+    chasis.turn(-56)
+    chasis.straight(215)
     chasis.turn(45)
-    # chasis.straight(95)
-    # chasis.turn(48)
+    chasis.straight(-1000)
+    
+    
+    
+
 
 
 def run2():
-    chasis.straight(-90)
-    chasis.straight(90)
-    chasis.straight(-90)
-    chasis.straight(90)
-    chasis.straight(-90)
-    chasis.straight(90)
-    chasis.straight(-90)
-    chasis.straight(90)
-    chasis.straight(-90)
-    chasis.straight(90)
-    chasis.straight(-90)
-    chasis.straight(90)
-    chasis.straight(-90)
-    chasis.straight(90)
-    # chasis.straight(200)
-    # chasis.straight(-200)
+    # This run completes Tip The scales(10) and partially completes Angler Artifacts (11)
+    chasis.straight(400)
+    chasis.turn(45)
+    chasis.straight(175)
+    chasis.turn(-30)
+    chasis.straight(600)
+    chasis.settings(turn_rate=50)
+    chasis.turn(75)
+    chasis.straight(475)
+    chasis.turn(-170)
+    chasis.straight(650)
+    chasis.settings(100,150)
+    chasis.turn(20)
+    # Pushes the pulley trigger ten times.
+    for i in range(10):
+        chasis.turn(-70)
+        chasis.turn(70)
+    chasis.straight(-250)
+    chasis.turn(50)
+    chasis.settings(350,100)
+    chasis.straight(1000)
+
+    
+
 
 def run3():
-
+    # This run completes Salvage Operation (12) and plants a flag.
     chasis.straight(880)
     right_arm.run_angle(500, 180)
     chasis.straight(-1000)
 
 
-def run4():
+def run5():
+    # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     chasis.straight(820)
     chasis.turn(90)
     chasis.straight(425)
@@ -85,18 +113,16 @@ def run4():
     chasis.straight(850)
 
 def run6():
+     # This run plants a flag.
      chasis.straight(790)
      chasis.straight(-790)
 
-
-def run5():
-    chasis.straight(790)
-
-def detect_run():
-    if arm_sensor.color(True) == Color.BLUE:
+def select_run_by_color():
+    # This function uses the arm color sensor to automatically start its run. *STILL IN DEVELOPMENT!*
+    if arm_sensor.color() == Color.BLUE:
         run3()
-    #elif
 
+# This block of code runs the functions based on user input.
 if selected == "1":
     while True:
         run1()
@@ -107,14 +133,14 @@ if selected == "2":
 if selected == "3":
     run3()
 
-if selected == "4":
-    run4()
-
 if selected == "5":
     run5()
 
-if selected == "D":
-    detect_run()
-
 if selected == "6":
     run6()
+
+if selected == "7":
+    until_black(-100)
+
+if selected == "R":
+    select_run_by_color()
