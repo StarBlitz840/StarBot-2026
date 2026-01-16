@@ -7,7 +7,7 @@ from pybricks.tools import hub_menu
 
 hub = PrimeHub()
 
-# Define attatchments
+# Define    
 left_wheel = Motor(Port.F, Direction.COUNTERCLOCKWISE)
 right_wheel = Motor(Port.B)
 left_arm = Motor(Port.E)
@@ -25,21 +25,22 @@ chasis.use_gyro(True)
 chasis.settings(300)
 
 #Define available runs
-selected = hub_menu("R", "1", "2", "3", "4", "5", "6", "7")
+selected = hub_menu("1", "2", "3", "4", "5", "6")
 # selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
 
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
-    cycles = 0
     chasis.drive(p_speed, 0)
     # Main loop, constantly checking if said condition is met.
     while True:
         if map_sensor.reflection() < 12:
             chasis.stop() 
             break
-        cycles += 1
-    return cycles
 
+def chasis_rotate_time(time):
+        left_wheel.run_time(200, time=time, wait=False)
+        right_wheel.run_time(-200, time=time, wait=False)
+        
 def run1():
     # This run completes the Silo (8) and the Forge (6).
     right_arm.run_time(500, 500)
@@ -73,16 +74,18 @@ def run2():
     chasis.straight(475)
     chasis.turn(-170)
     chasis.straight(650)
-    chasis.settings(100,150)
+    chasis.settings(100,200)
     chasis.turn(20)
     # Pushes the pulley trigger ten times.
     for i in range(10):
         chasis.turn(-70)
         chasis.turn(70)
     chasis.straight(-250)
-    chasis.turn(50)
-    chasis.settings(350,100)
-    chasis.straight(1200)
+    chasis.turn(60)
+    chasis.settings(500,100, straight_acceleration=750)
+    chasis.straight(1000)
+    chasis.turn(-65)
+    chasis.straight(1000)
 
     
 
@@ -97,17 +100,18 @@ def run3():
 def run5():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     chasis.straight(820)
+    chasis.settings(turn_rate=90)
     chasis.turn(90)
     chasis.straight(425)
     chasis.turn(-90)
-    chasis.straight(110)
+    chasis.straight(125)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
     chasis.straight(-110)
     chasis.turn(90)
     chasis.straight(-530)
     chasis.turn(45)
-    chasis.straight(-290)
+    chasis.straight(-320)
     chasis.straight(290)
     chasis.turn(45)
     chasis.straight(850)
@@ -152,8 +156,8 @@ if selected == "5":
 if selected == "6":
     run6()
 
-if selected == "7":
+if selected == "7": # TBD
     until_black(-100)
 
-if selected == "R":
+if selected == "R": # TBD
     select_run_by_color()
