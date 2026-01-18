@@ -37,7 +37,11 @@ def run1():
     chasis.straight(150)
     chasis.turn(-56)
     chasis.straight(215)
+    chasis.straight(-25)
+    chasis.turn(-25)
+    chasis.turn(25)
     chasis.turn(45)
+    chasis.straight(30)
     chasis.straight(-1000)
 def run2():
     chasis.straight(400)
@@ -62,32 +66,40 @@ def run3():
     right_arm.run_angle(500, 180)
     chasis.straight(-1000)
 def run4():
-    # chasis.straight(820)
-    # chasis.turn(90)
-    # chasis.straight(425)
-    # chasis.turn(-90)
-    # chasis.straight(110)
+    chasis.straight(820)
+    chasis.turn(90)
+    chasis.straight(425)
+    chasis.turn(-90)
+    chasis.straight(110)
     left_arm.run_time(speed=-2000,time=2500)
     left_arm.run_time(2000,2500)
-    # chasis.straight(-110)
+    chasis.straight(-110)
     chasis.turn(90)
-    # chasis.straight(-530)
-    # chasis.turn(45)
-    # chasis.straight(-290)
-    # chasis.straight(290)
-    # chasis.turn(45)
-    # chasis.straight(850)    
+    chasis.straight(-530)
+    chasis.turn(45)
+    chasis.straight(-290)
+    chasis.straight(290)
+    chasis.turn(45)
+    chasis.straight(850)    
 def run5():
      chasis.straight(790)
      chasis.straight(-790)
 def detect_run():
-    if arm_sensor.color(True) == Color.BLUE:
-        selected = 3
-    #elif
+    # if arm_sensor.color(True) == Color.BLUE:
+    #     run1()
+    # if arm_sensor.color(True) == Color.BLUE:
+    #     run2()
+    if arm_sensor.color() == Color.BLUE:
+        run3()
+    if arm_sensor.color() == Color.ORANGE:
+        run4()
+    if arm_sensor.color() == Color.BROWN:
+        run5()
+
+# while True:
+#     print(arm_sensor.color())
 
 selected = hub_menu("1", "2", "3", "4", "5", "R")
-detect_run()
-print(selected)
 if selected == "1":
     run1()
 
