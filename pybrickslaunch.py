@@ -1,4 +1,4 @@
-HUB_NAME = "starboy"
+HUB_NAME = "StarBoy"
 
 import os
 import subprocess
