@@ -79,7 +79,7 @@ def run4():
     chasis.turn(45)
     chasis.straight(-290)
     chasis.straight(290)
-    chasis.turn(45)
+    #chasis.turn(45)
     chasis.straight(850)    
 def run5():
      chasis.straight(790)
@@ -91,9 +91,9 @@ def detect_run():
     #     run2()
     if arm_sensor.color() == Color.BLUE:
         run3()
-    if arm_sensor.color() == Color.ORANGE:
+    if arm_sensor.color() == Color.RED:
         run4()
-    if arm_sensor.color() == Color.BROWN:
+    if arm_sensor.color() == Color.YELLOW:
         run5()
 
 # while True:
@@ -117,3 +117,4 @@ if selected == "5":
 
 if selected == "R":
     detect_run()
+
