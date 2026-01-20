@@ -131,9 +131,11 @@ def run6():
      chasis.straight(-790)
 
 def select_run_by_color():
+    print(arm_sensor.color())
+    print(arm_sensor.hsv())
     # This function uses the arm color sensor to automatically start its run. *STILL IN DEVELOPMENT!*
     if arm_sensor.color(True) == Color.BLACK:
-        # run1()
+        run1()
         print # temporary
     elif arm_sensor.color(True) == Color.WHITE:
         run2()
