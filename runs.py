@@ -12,7 +12,7 @@ Color.WHITE = Color(0, 0, 100)
 Color.RED = Color(252, 88, 75)
 Color.YELLOW = Color(51, 70, 98)
 Color.BLUE = Color(216, 87, 62)
-Color.BROWN = Color(0, 48, 36)
+# Color.BROWN = Color(0, 48, 36)
 
 
 # Define    
@@ -25,7 +25,7 @@ arm_sensor = ColorSensor(Port.C)
 
 
 # Define available colors for runs
-arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
+arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE])
 
 #Define chasis
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
@@ -57,9 +57,9 @@ def run1():
     # Hits the Silo arm 4 times.
     for i in range(4):
         right_arm.run_time(1200, 790)
-        right_arm.run_time(-1100, 755)
+        right_arm.run_time(-1200, 770)
     right_arm.run_time(250, 1700)
-    right_arm.run_time(-250, 700)
+    right_arm.run_time(-250, 400)
     chasis.straight(150)
     chasis.turn(-56)
     chasis.straight(215)
@@ -108,12 +108,12 @@ def run3():
 
 def run5():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
-    chasis.straight(820)
+    chasis.straight(1010)
     chasis.settings(turn_rate=90)
-    chasis.turn(90)
-    chasis.straight(425)
-    chasis.turn(-90)
-    chasis.straight(125)
+    chasis.turn(85)
+    chasis.straight(260)
+   # chasis.turn(-90)
+  #  chasis.straight(125)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
     chasis.straight(-110)
@@ -141,12 +141,12 @@ def select_run_by_color():
         run2()
     elif arm_sensor.color(True) == Color.BLUE:
         run3()
-    elif arm_sensor.color(True) == Color.YELLOW:
+    # elif arm_sensor.color(True) == Color.BROWN:
         # run4()
         print # Temporary hotfix until we make run4()
     elif arm_sensor.color(True) == Color.RED:
         run5()
-    elif arm_sensor.color(True) == Color.BROWN:
+    elif arm_sensor.color(True) == Color.YELLOW:
         run6()
 
 # This block of code runs functions based on user input.
