@@ -9,11 +9,9 @@ hub = PrimeHub()
 
 Color.BLACK = Color(220, 7, 15)
 Color.WHITE = Color(0, 0, 100)
-Color.RED = Color(252, 88, 75)
+Color.RED = Color(352, 91, 78)
 Color.YELLOW = Color(51, 70, 98)
 Color.BLUE = Color(216, 87, 62)
-Color.BROWN = Color(0, 48, 36)
-
 
 # Define    
 left_wheel = Motor(Port.F, Direction.COUNTERCLOCKWISE)
@@ -63,6 +61,7 @@ def run1():
     chasis.turn(45)
     chasis.straight(30)
     chasis.straight(-1000)
+
 def run2():
     chasis.straight(400)
     chasis.turn(45)
@@ -81,10 +80,12 @@ def run2():
     chasis.turn(70)
     chasis.turn(-40)
     chasis.turn(70)
+
 def run3():
     chasis.straight(880)
     right_arm.run_angle(500, 180)
     chasis.straight(-1000)
+
 def run4():
     chasis.straight(820)
     chasis.turn(90)
@@ -99,8 +100,9 @@ def run4():
     chasis.turn(45)
     chasis.straight(-290)
     chasis.straight(290)
-    #chasis.turn(45)
+    chasis.turn(45)
     chasis.straight(850)    
+
 def run5():
      chasis.straight(790)
      chasis.straight(-790)
@@ -116,13 +118,12 @@ def run_by_color():
         run2()
     elif arm_sensor.color(True) == Color.BLUE:
         run3()
-    elif arm_sensor.color(True) == Color.YELLOW:
-        # run4()
-        print # Temporary hotfix until we make run4()
     elif arm_sensor.color(True) == Color.RED:
-        run5()
+        run4()
+    elif arm_sensor.color(True) == Color.YELLOW:
+        # run5()
+        print # Temporary hotfix until we make run5()
 
-selected = hub_menu("1", "2", "3", "4", "5", "R")
 if selected == "1":
     run1()
 
