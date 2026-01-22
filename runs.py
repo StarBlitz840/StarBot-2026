@@ -23,6 +23,9 @@ right_arm = Motor(Port.A)
 map_sensor = ColorSensor(Port.D)
 arm_sensor = ColorSensor(Port.C)
 
+#Define available runs
+selected = hub_menu("R", "1", "2", "3", "4", "5", "6")
+# selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
 
 # Define available colors for runs
 arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
