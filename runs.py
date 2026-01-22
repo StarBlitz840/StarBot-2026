@@ -7,6 +7,15 @@ from pybricks.tools import hub_menu
 
 hub = PrimeHub()
 
+Color.BLACK = Color(220, 7, 15)
+Color.WHITE = Color(0, 0, 100)
+Color.RED = Color(252, 88, 75)
+Color.YELLOW = Color(51, 70, 98)
+Color.BLUE = Color(216, 87, 62)
+Color.BROWN = Color(0, 48, 36)
+
+
+# Define    
 left_wheel = Motor(Port.F, Direction.COUNTERCLOCKWISE)
 right_wheel = Motor(Port.B)
 left_arm = Motor(Port.E)
@@ -14,15 +23,23 @@ right_arm = Motor(Port.A)
 map_sensor = ColorSensor(Port.D)
 arm_sensor = ColorSensor(Port.C)
 
+
+# Define available colors for runs
+arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
+
+#Define chasis
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
 
 chasis.settings(300)
 
-def until_black(): 
-    chasis.drive(100, 0)
-    while map_sensor.color() != Color.BLACK:
-        if map_sensor.color()== Color.BLACK:
+def until_black(p_speed): 
+    # This function moves the robot until it is over a black line.
+    chasis.drive(p_speed, 0)
+    # Main loop, constantly checking if said condition is met.
+    while True:
+        if map_sensor.reflection() < 12:
+            chasis.stop() 
             break
     chasis.stop()
 
@@ -84,20 +101,23 @@ def run4():
 def run5():
      chasis.straight(790)
      chasis.straight(-790)
-def detect_run():
-    # if arm_sensor.color(True) == Color.BLUE:
-    #     run1()
-    # if arm_sensor.color(True) == Color.BLUE:
-    #     run2()
-    if arm_sensor.color() == Color.BLUE:
-        run3()
-    if arm_sensor.color() == Color.RED:
-        run4()
-    if arm_sensor.color() == Color.YELLOW:
-        run5()
 
-# while True:
-#     print(arm_sensor.color())
+def run_by_color():
+    print(arm_sensor.color())
+    print(arm_sensor.hsv())
+    # This function uses the arm color sensor to automatically start its run. *STILL IN DEVELOPMENT!*
+    if arm_sensor.color(True) == Color.BLACK:
+        run1()
+        print # temporary
+    elif arm_sensor.color(True) == Color.WHITE:
+        run2()
+    elif arm_sensor.color(True) == Color.BLUE:
+        run3()
+    elif arm_sensor.color(True) == Color.YELLOW:
+        # run4()
+        print # Temporary hotfix until we make run4()
+    elif arm_sensor.color(True) == Color.RED:
+        run5()
 
 selected = hub_menu("1", "2", "3", "4", "5", "R")
 if selected == "1":
@@ -116,5 +136,5 @@ if selected == "5":
     run5()
 
 if selected == "R":
-    detect_run()
+    run_by_color()
 
