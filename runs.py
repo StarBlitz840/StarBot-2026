@@ -7,6 +7,12 @@ from pybricks.tools import hub_menu
 
 hub = PrimeHub()
 
+Color.BLACK = Color(220, 7, 15)
+Color.WHITE = Color(0, 0, 100)
+Color.RED = Color(352, 91, 78)
+Color.YELLOW = Color(51, 70, 98)
+Color.BLUE = Color(216, 87, 62)
+
 # Define    
 left_wheel = Motor(Port.F, Direction.COUNTERCLOCKWISE)
 right_wheel = Motor(Port.B)
@@ -15,18 +21,18 @@ right_arm = Motor(Port.A)
 map_sensor = ColorSensor(Port.D)
 arm_sensor = ColorSensor(Port.C)
 
+#Define available runs
+selected = hub_menu("R", "1", "2", "3", "4", "5", "6")
+# selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
+
 # Define available colors for runs
-arm_sensor.detectable_colors([Color.BLUE, Color.ORANGE, Color.GREEN, Color.BROWN, Color.YELLOW])
+arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
 
 #Define chasis
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
 
 chasis.settings(300)
-
-#Define available runs
-selected = hub_menu("1", "2", "3", "4", "5", "6")
-# selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
 
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
@@ -36,62 +42,46 @@ def until_black(p_speed):
         if map_sensor.reflection() < 12:
             chasis.stop() 
             break
+    chasis.stop()
 
-def chasis_rotate_time(time):
-        left_wheel.run_time(200, time=time, wait=False)
-        right_wheel.run_time(-200, time=time, wait=False)
-        
 def run1():
-    # This run completes the Silo (8) and the Forge (6).
     right_arm.run_time(500, 500)
-    chasis.straight(785)
-    # Hits the Silo arm 4 times.
+    chasis.straight(790)
     for i in range(4):
         right_arm.run_time(1200, 790)
-        right_arm.run_time(-1100, 755)
+        right_arm.run_time(-1100, 770)
     right_arm.run_time(250, 1700)
     right_arm.run_time(-250, 700)
     chasis.straight(150)
     chasis.turn(-56)
     chasis.straight(215)
+    chasis.straight(-25)
+    chasis.turn(-25)
+    chasis.turn(25)
     chasis.turn(45)
+    chasis.straight(30)
     chasis.straight(-1000)
-    
-    
-    
-
-
 
 def run2():
-    # This run completes Tip The scales(10) and partially completes Angler Artifacts (11)
     chasis.straight(400)
     chasis.turn(45)
     chasis.straight(175)
-    chasis.turn(-30)
-    chasis.straight(600)
-    chasis.settings(turn_rate=50)
-    chasis.turn(75)
-    chasis.straight(475)
-    chasis.turn(-170)
-    chasis.straight(650)
-    chasis.settings(100,200)
-    chasis.turn(20)
-    # Pushes the pulley trigger ten times.
-    for i in range(10):
-        chasis.turn(-70)
-        chasis.turn(70)
-    chasis.straight(-250)
-    chasis.turn(60)
-    chasis.settings(500,100, straight_acceleration=750)
-    chasis.straight(1000)
-    chasis.turn(-65)
-    chasis.straight(1000)
-
-    
-
+    chasis.turn(-35)
+    chasis.straight(480)
+    chasis.turn(71)
+    chasis.straight(400)
+    chasis.turn(-180)
+    chasis.straight(300)
+    chasis.turn(25)
+    chasis.straight(185)
+    chasis.turn(-40)
+    chasis.turn(50)
+    chasis.turn(-40)
+    chasis.turn(70)
+    chasis.turn(-40)
+    chasis.turn(70)
 
 def run3():
-    # This run completes Salvage Operation (12) and plants a flag.
     chasis.straight(880)
     right_arm.run_angle(500, 180)
     chasis.straight(-1000)
@@ -116,33 +106,29 @@ def run5():
     #chasis.turn(45) 
     #chasis.straight(850)
 
-def run6():
-     # This run plants a flag.
+def run5():
      chasis.straight(790)
      chasis.straight(-790)
 
-def select_run_by_color():
-    print(arm_sensor.color(True))
+def run_by_color():
+    print(arm_sensor.color())
+    print(arm_sensor.hsv())
     # This function uses the arm color sensor to automatically start its run. *STILL IN DEVELOPMENT!*
-    if arm_sensor.color(True) == Color.GRAY:
-        # run1()
+    if arm_sensor.color(True) == Color.BLACK:
+        run1()
         print # temporary
-    elif arm_sensor.color(True) == Color.YELLOW:
+    elif arm_sensor.color(True) == Color.WHITE:
         run2()
     elif arm_sensor.color(True) == Color.BLUE:
         run3()
-    elif arm_sensor.color(True) == Color.MAGENTA:
-        # run4()
-        print # Temporary hotfix until we make run4()
-    elif arm_sensor.color(True) == Color.ORANGE:
-        run5()
-    elif arm_sensor.color(True) == Color.BROWN:
-        run6()
+    elif arm_sensor.color(True) == Color.RED:
+        run4()
+    elif arm_sensor.color(True) == Color.YELLOW:
+        # run5()
+        print # Temporary hotfix until we make run5()
 
-# This block of code runs functions based on user input.
 if selected == "1":
-    while True:
-        run1()
+    run1()
 
 if selected == "2":
     run2()
@@ -150,14 +136,12 @@ if selected == "2":
 if selected == "3":
     run3()
 
+if selected == "4":
+    run4()
+
 if selected == "5":
     run5()
-    
-if selected == "6":
-    run6()
 
-if selected == "7": # TBD
-    until_black(-100)
+if selected == "R":
+    run_by_color()
 
-if selected == "R": # TBD
-    select_run_by_color()
