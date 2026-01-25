@@ -21,8 +21,6 @@ right_arm = Motor(Port.A)
 map_sensor = ColorSensor(Port.D)
 arm_sensor = ColorSensor(Port.C)
 
-#Define available runs
-selected = hub_menu("R", "1", "2", "3", "4", "5", "6")
 # selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
 
 # Define available colors for runs
@@ -33,6 +31,15 @@ chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
 
 chasis.settings(300)
+
+def turn_time(time, direction):
+    # direction : 1/-1
+    count = 0
+    while count < time:
+        chasis.drive(speed= 0 , turn_rate= direction)
+        wait(1000)
+        count +=  1
+    chasis.stop()
 
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
@@ -87,7 +94,7 @@ def run3():
     chasis.straight(-1000)
 
 
-def run5():
+def run4():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     chasis.straight(1030)
     chasis.turn(90)
@@ -98,9 +105,10 @@ def run5():
     chasis.turn(-30)
     chasis.straight(-132)
     chasis.turn(45)
-    chasis.straight(-150)
-    chasis.turn(30)
-    chasis.turn(-30)
+    chasis.straight(-155)
+    chasis.turn(45)
+    turn_time(time= 3, direction= -1)
+    chasis.straight(150)
 
     #chasis.straight(290)
     #chasis.turn(45) 
@@ -127,6 +135,7 @@ def run_by_color():
         # run5()
         print # Temporary hotfix until we make run5()
 
+selected = hub_menu("R", "1", "2", "3", "4", "5",)
 if selected == "1":
     run1()
 
