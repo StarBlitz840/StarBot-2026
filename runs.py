@@ -99,22 +99,22 @@ def run3():
 
 def run5():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
-    chasis.straight(820)
-    chasis.settings(turn_rate=90)
+    chasis.straight(1030)
     chasis.turn(90)
-    chasis.straight(425)
-    chasis.turn(-90)
-    chasis.straight(125)
+    chasis.straight(225)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
-    chasis.straight(-110)
-    chasis.turn(90)
-    chasis.straight(-530)
+    chasis.straight(-250)
+    chasis.turn(-30)
+    chasis.straight(-132)
     chasis.turn(45)
-    chasis.straight(-320)
-    chasis.straight(290)
-    chasis.turn(45)
-    chasis.straight(850)
+    chasis.straight(-150)
+    chasis.turn(30)
+    chasis.turn(-30)
+
+    #chasis.straight(290)
+    #chasis.turn(45) 
+    #chasis.straight(850)
 
 def run6():
      # This run plants a flag.
