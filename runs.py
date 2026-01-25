@@ -106,9 +106,11 @@ def run4():
     chasis.straight(-132)
     chasis.turn(45)
     chasis.straight(-155)
-    chasis.turn(45)
-    turn_time(time= 3, direction= -1)
+    turn_time(time=0.25 , direction= -1)
     chasis.straight(150)
+    chasis.turn(75)
+    chasis.settings(500)
+    chasis.straight(850)
 
     #chasis.straight(290)
     #chasis.turn(45) 
