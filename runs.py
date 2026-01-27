@@ -37,9 +37,10 @@ def turn_time(time, direction):
     count = 0
     while count < time:
         chasis.drive(speed= 0 , turn_rate= direction)
-        wait(1000)
+        wait(1)
         count +=  1
     chasis.stop()
+
 
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
@@ -70,23 +71,31 @@ def run1():
     chasis.straight(-1000)
 
 def run2():
+    right_arm.run_angle(1000, 240)
     chasis.straight(400)
     chasis.turn(45)
     chasis.straight(175)
-    chasis.turn(-35)
+    chasis.turn(-45)
     chasis.straight(480)
-    chasis.turn(71)
-    chasis.straight(400)
+    chasis.turn(90)
+    chasis.straight(600)
     chasis.turn(-180)
-    chasis.straight(300)
+    chasis.straight(500)
     chasis.turn(25)
-    chasis.straight(185)
-    chasis.turn(-40)
-    chasis.turn(50)
-    chasis.turn(-40)
-    chasis.turn(70)
-    chasis.turn(-40)
-    chasis.turn(70)
+    chasis.straight(200)
+    right_arm.run_angle(1000, 180)
+    for i in range(10):
+        turn_time(700, -70)
+        turn_time(600, 70)
+    chasis.turn(-15)
+    until_black(-300)
+    chasis.turn(90)
+    chasis.straight(300)
+    chasis.turn(45)
+    right_arm.run_angle(1000, -420)
+    chasis.straight(400)
+    right_arm.run_time(1000, 600)
+    until_black(-300)
 
 def run3():
     chasis.straight(880)
@@ -110,11 +119,7 @@ def run4():
     chasis.straight(150)
     chasis.turn(75)
     chasis.settings(500)
-    chasis.straight(850)
-
-    #chasis.straight(290)
-    #chasis.turn(45) 
-    #chasis.straight(850)
+    chasis.straight(900)
 
 def run5():
      chasis.straight(790)
