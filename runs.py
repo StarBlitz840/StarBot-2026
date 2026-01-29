@@ -32,14 +32,9 @@ chasis.use_gyro(True)
 
 chasis.settings(300)
 
-def turn_time(time, direction):
-    # direction : 1/-1
-    count = 0
-    while count < time:
-        chasis.drive(speed= 0 , turn_rate= direction)
-        wait(1)
-        count +=  1
-    chasis.stop()
+def turn_time(speed, time):
+    right_wheel.run_time(speed , time, wait=False)
+    left_wheel.run_time(speed * -1, time, wait=True)
 
 
 def until_black(p_speed): 
@@ -60,15 +55,13 @@ def run1():
         right_arm.run_time(-1100, 770)
     right_arm.run_time(250, 1700)
     right_arm.run_time(-250, 700)
-    chasis.straight(150)
-    chasis.turn(-56)
-    chasis.straight(215)
-    chasis.straight(-25)
-    chasis.turn(-25)
-    chasis.turn(25)
-    chasis.turn(45)
-    chasis.straight(30)
+    chasis.straight(135)
+    turn_time(300, 2000)
+    turn_time(-300, 2000)
+    chasis.turn(50)
     chasis.straight(-1000)
+    chasis.turn(-90)
+    chasis.straight(-400)
 
 def run2():
     right_arm.run_angle(1000, 240)
