@@ -36,7 +36,6 @@ def turn_time(speed, time):
     right_wheel.run_time(speed , time, wait=False)
     left_wheel.run_time(speed * -1, time, wait=True)
 
-
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
     chasis.drive(p_speed, 0)
@@ -55,13 +54,12 @@ def run1():
         right_arm.run_time(-1100, 770)
     right_arm.run_time(250, 1700)
     right_arm.run_time(-250, 700)
-    chasis.straight(135)
-    turn_time(300, 2000)
-    turn_time(-300, 2000)
-    chasis.turn(50)
-    chasis.straight(-1000)
-    chasis.turn(-90)
-    chasis.straight(-400)
+    chasis.straight(147)
+    turn_time(100, 850)
+    turn_time(-100, 650)
+    chasis.straight(-600)
+    chasis.turn(-60)
+    chasis.straight(-600)
 
 def run2():
     right_arm.run_angle(1000, 240)
@@ -107,16 +105,16 @@ def run_by_color():
     print(arm_sensor.color())
     print(arm_sensor.hsv())
     # This function uses the arm color sensor to automatically start its run. *STILL IN DEVELOPMENT!*
-    if arm_sensor.color(True) == Color.BLACK:
+    if arm_sensor.color() == Color.BLACK:
         run1()
         print # temporary
-    elif arm_sensor.color(True) == Color.WHITE:
+    elif arm_sensor.color() == Color.WHITE:
         run2()
-    elif arm_sensor.color(True) == Color.BLUE:
+    elif arm_sensor.color() == Color.BLUE:
         run3()
-    elif arm_sensor.color(True) == Color.RED:
+    elif arm_sensor.color() == Color.RED:
         run4()
-    elif arm_sensor.color(True) == Color.YELLOW:
+    elif arm_sensor.color() == Color.YELLOW:
         # run5()
         print # Temporary hotfix until we make run5()
 
