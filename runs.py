@@ -74,21 +74,6 @@ def run2():
     chasis.straight(600)
     chasis.turn(-180)
     chasis.straight(500)
-    chasis.turn(25)
-    chasis.straight(200)
-    right_arm.run_angle(1000, 180)
-    for i in range(10):
-        turn_time(700, -70)
-        turn_time(600, 70)
-    chasis.turn(-15)
-    until_black(-300)
-    chasis.turn(90)
-    chasis.straight(300)
-    chasis.turn(45)
-    right_arm.run_angle(1000, -420)
-    chasis.straight(400)
-    right_arm.run_time(1000, 600)
-    until_black(-300)
 
 def run3():
     chasis.straight(880)
