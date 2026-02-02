@@ -35,7 +35,9 @@ chasis.settings(300)
 def turn_time(speed, time):
     right_wheel.run_time(speed , time, wait=False)
     left_wheel.run_time(speed * -1, time, wait=True)
-
+def sivuv(angle, speed):
+    dana = angle - hub.imu.heading()
+    chasis.turn(dana)
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
     chasis.drive(p_speed, 0)
@@ -47,6 +49,7 @@ def until_black(p_speed):
     chasis.stop()
 
 def run1():
+    global sivuv
     right_arm.run_time(500, 500)
     chasis.straight(790)
     for i in range(4):
@@ -54,9 +57,9 @@ def run1():
         right_arm.run_time(-1100, 770)
     right_arm.run_time(250, 1700)
     right_arm.run_time(-250, 700)
-    chasis.straight(147)
-    turn_time(100, 850)
-    turn_time(-100, 650)
+    chasis.straight(152)
+    turn_time(100, 1000)
+    turn_time(-100, 1150)
     chasis.straight(-600)
     chasis.turn(-60)
     chasis.straight(-600)
