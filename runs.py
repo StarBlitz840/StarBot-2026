@@ -104,19 +104,17 @@ def run5():
 def run_by_color():
     print(arm_sensor.color())
     print(arm_sensor.hsv())
-    # This function uses the arm color sensor to automatically start its run. *STILL IN DEVELOPMENT!*
-    if arm_sensor.color() == Color.BLACK:
+    # This function uses the arm color sensor to automatically start its run.
+    if arm_sensor.color(True) == Color.BLACK:
         run1()
-        print # temporary
-    elif arm_sensor.color() == Color.WHITE:
+    elif arm_sensor.color(True) == Color.WHITE:
         run2()
     elif arm_sensor.color() == Color.BLUE:
         run3()
     elif arm_sensor.color() == Color.RED:
         run4()
-    elif arm_sensor.color() == Color.YELLOW:
-        # run5()
-        print # Temporary hotfix until we make run5()
+    elif arm_sensor.color(True) == Color.YELLOW:
+         run5()
 
 selected = hub_menu("R", "1", "2", "3", "4", "5",)
 if selected == "1":
