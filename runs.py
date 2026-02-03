@@ -119,8 +119,8 @@ def run4():
     chasis.straight(1000)
 
 def run5():
-     chasis.straight(790)
-     chasis.straight(-790)
+     chasis.straight(830)
+     chasis.straight(-830)
 
 def run_by_color():
     print(arm_sensor.color())
