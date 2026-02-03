@@ -30,7 +30,7 @@ arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW,
 chasis = DriveBase(left_wheel, right_wheel, 80, 80)
 chasis.use_gyro(True)
 
-chasis.settings(300)
+chasis.settings(300, turn_rate=100)
 
 def turn_time(speed, time):
     right_wheel.run_time(speed , time, wait=False)
@@ -57,24 +57,40 @@ def run1():
         right_arm.run_time(-1100, 770)
     right_arm.run_time(250, 1700)
     right_arm.run_time(-250, 700)
-    chasis.straight(152)
+    chasis.straight(140)
     turn_time(100, 1000)
-    turn_time(-100, 1150)
+    turn_time(-100, 1000)
     chasis.straight(-600)
     chasis.turn(-60)
-    chasis.straight(-600)
+    chasis.straight(-800)
+    chasis.turn(-45)
 
 def run2():
-    right_arm.run_angle(1000, 240)
-    chasis.straight(400)
-    chasis.turn(45)
-    chasis.straight(175)
-    chasis.turn(-45)
-    chasis.straight(480)
-    chasis.turn(90)
-    chasis.straight(600)
-    chasis.turn(-180)
+    # chasis.settings(straight_speed=100, turn_rate=100)
     chasis.straight(500)
+    left_arm.run_angle(300, -300, wait=False)
+    chasis.turn(45)
+    chasis.straight(650)
+    chasis.turn(45)
+    chasis.straight(600)
+    chasis.straight(-750)
+    chasis.turn(10)
+    chasis.straight(-55)
+    chasis.turn(-15)
+    right_arm.run_time(50, 8000, wait=False)
+    turn_time(300, 8000)
+    chasis.turn(20)
+    chasis.straight(50)
+    left_arm.run_time(-600, 1500, wait=False)
+    chasis.turn(-30)
+    chasis.straight(400)
+    left_arm.run_angle(300, 1200)
+    chasis.straight(-400)
+    left_arm.run_angle(300, 300, wait=False)
+    chasis.turn(-60)
+    chasis.straight(600)
+    chasis.turn(-45)
+    chasis.straight(800)
 
 def run3():
     chasis.straight(880)
@@ -93,12 +109,14 @@ def run4():
     chasis.turn(-30)
     chasis.straight(-132)
     chasis.turn(45)
+    chasis.straight(-150)
+    chasis.turn(30)
+    chasis.turn(-30)
     chasis.straight(-155)
-    turn_time(time=0.25 , direction= -1)
-    chasis.straight(150)
-    chasis.turn(75)
-    chasis.settings(500)
-    chasis.straight(900)
+    chasis.turn(45)
+    chasis.straight(200)
+    chasis.turn(30)
+    chasis.straight(1000)
 
 def run5():
      chasis.straight(790)
@@ -108,6 +126,10 @@ def run_by_color():
     print(arm_sensor.color())
     print(arm_sensor.hsv())
     # This function uses the arm color sensor to automatically start its run.
+
+    # Reset the heading of the robot.
+    hub.imu.reset_heading(0)
+ 
     if arm_sensor.color(True) == Color.BLACK:
         run1()
     elif arm_sensor.color(True) == Color.WHITE:
