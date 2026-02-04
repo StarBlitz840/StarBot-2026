@@ -114,11 +114,13 @@ def run4():
     chasis.straight(-150)
     chasis.turn(30)
     chasis.turn(-30)
-    chasis.straight(-155)
+    chasis.straight(150)
     chasis.turn(45)
     chasis.straight(200)
     chasis.turn(30)
-    chasis.straight(1000)
+    chasis.straight(600)
+    chasis.turn(10)
+    chasis.straight(400)
 
 def run5():
      chasis.straight(830)
