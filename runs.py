@@ -57,14 +57,12 @@ def run1():
     for i in range(4):
         right_arm.run_time(1200, 790)
         right_arm.run_time(-1100, 770)
-    right_arm.run_time(250, 1700)
-    right_arm.run_time(-250, 700)
     chasis.straight(140)
     turn_time(100, 1000)
-    turn_time(-100, 1000)
-    chasis.straight(-600)
-    chasis.turn(-60)
-    chasis.straight(-800)
+    turn_time(-80, 1000)
+    chasis.straight(-300)
+    chasis.turn(-110)
+    chasis.straight(120)
     chasis.turn(-45)
 
 def run2():
@@ -75,7 +73,7 @@ def run2():
     chasis.straight(625)
     chasis.turn(45)
     chasis.straight(300)
-    chasis.straight(-510)
+    chasis.straight(-710)
     sivuv(82, 300)
     right_arm.run_time(1000, 5000, wait=False)
     turn_time(10, 5000)
@@ -124,7 +122,13 @@ def run4():
 
 def run5():
      chasis.straight(830)
-     chasis.straight(-830)
+     chasis.straight(-200)
+     chasis.settings(100)
+     chasis.straight(50)
+     left_arm.run_time(-300, 1500)
+     chasis.straight(-100)
+     chasis.settings(500)
+     chasis.straight(-2000)
 
 def run_by_color():
     print(arm_sensor.color())
@@ -163,4 +167,3 @@ if selected == "5":
 
 if selected == "R":
     run_by_color()
-
