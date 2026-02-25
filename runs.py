@@ -21,6 +21,9 @@ right_arm = Motor(Port.A)
 map_sensor = ColorSensor(Port.D)
 arm_sensor = ColorSensor(Port.C)
 
+# Set up 2 part run.
+skip_done = False
+
 # selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
 
 # Define available colors for runs
@@ -59,11 +62,16 @@ def run1():
         right_arm.run_time(-1100, 770)
     chasis.straight(140)
     turn_time(100, 1000)
-    turn_time(-80, 1000)
+    sivuv(0, 300)
+    chasis.straight(-90)
+    chasis.turn(-96)
     chasis.straight(-300)
-    chasis.turn(-110)
-    chasis.straight(120)
-    chasis.turn(-45)
+    #turn_time(-80, 1000)
+    #chasis.straight(-310)
+    #chasis.turn(-100)
+    #chasis.straight(120)
+    #chasis.turn(-115)
+    #chasis.straight(-500)
 
 def run2():
     # chasis.settings(straight_speed=100, turn_rate=100)
@@ -92,13 +100,22 @@ def run2():
     chasis.turn(-60, wait=False)
     chasis.straight(1000)
 
+def run5():
+    global skip_done
+    if skip_done:
+        chasis.straight(800)
+        chasis.settings(1000)
+        chasis.straight(-2000)
+        return False
+    else:
+        chasis.straight(880)
+        right_arm.run_angle(500, 180)
+        chasis.straight(-1000)
+        return True
+
+
+
 def run3():
-    chasis.straight(880)
-    right_arm.run_angle(500, 180)
-    chasis.straight(-1000)
-
-
-def run4():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     chasis.straight(1030)
     chasis.turn(90)
@@ -120,7 +137,7 @@ def run4():
     chasis.turn(10)
     chasis.straight(400)
 
-def run5():
+def run4():
      chasis.straight(830)
      chasis.straight(-200)
      chasis.settings(100)
@@ -131,6 +148,7 @@ def run5():
      chasis.straight(-2000)
 
 def run_by_color():
+    global skip_done
     print(arm_sensor.color())
     print(arm_sensor.hsv())
     # This function uses the arm color sensor to automatically start its run.
@@ -142,12 +160,12 @@ def run_by_color():
         run1()
     elif arm_sensor.color(True) == Color.WHITE:
         run2()
-    elif arm_sensor.color() == Color.BLUE:
-        run3()
     elif arm_sensor.color() == Color.RED:
+        run3()
+    elif arm_sensor.color() == Color.YELLOW:
         run4()
-    elif arm_sensor.color(True) == Color.YELLOW:
-         run5()
+    elif arm_sensor.color(True) == Color.BLUE:
+        skip_done = run5()
 
 selected = hub_menu("R", "1", "2", "3", "4", "5",)
 if selected == "1":
