@@ -35,9 +35,9 @@ chasis.use_gyro(True)
 
 chasis.settings(300, turn_rate=100)
 
-def turn_time(speed, time):
+def turn_time(speed, time, p_wait: bool = True):
     right_wheel.run_time(speed , time, wait=False)
-    left_wheel.run_time(speed * -1, time, wait=True)
+    left_wheel.run_time(speed * -1, time, wait=p_wait)
 
 def sivuv(angle, speed):
     dana = angle - hub.imu.heading()
@@ -64,8 +64,9 @@ def run1():
     turn_time(100, 1000)
     sivuv(0, 300)
     chasis.straight(-90)
-    chasis.turn(-96)
-    chasis.straight(-300)
+    chasis.turn(-90)
+    chasis.straight(-100)
+    
     #turn_time(-80, 1000)
     #chasis.straight(-310)
     #chasis.turn(-100)
@@ -78,17 +79,23 @@ def run2():
     chasis.straight(500)
     left_arm.run_angle(1000, -500, wait=False)
     chasis.turn(45)
-    chasis.straight(625)
+    chasis.straight(600)
     chasis.turn(45)
-    chasis.straight(300)
-    chasis.straight(-710)
+    chasis.straight(350)
+    turn_time(300, 350)
+    chasis.straight(-200)
+    sivuv(90, 300)
+    turn_time(10, 2000, False)
+    until_black(-225)
+    sivuv(92, 300)
+    chasis.straight(-10)
     sivuv(82, 300)
     right_arm.run_time(1000, 5000, wait=False)
     turn_time(10, 5000)
     sivuv(90, 300)
     chasis.straight(180)
     left_arm.run_time(-1000, 2000)
-    left_arm.run_time(1000, 100)
+    # left_arm.run_time(1000, 100)
     sivuv(57, 300)
     chasis.straight(1) # Gives sivuv() time to run.
     chasis.straight(250)
@@ -152,10 +159,11 @@ def run_by_color():
     print(arm_sensor.color())
     print(arm_sensor.hsv())
     # This function uses the arm color sensor to automatically start its run.
-
     # Reset the heading of the robot.
     hub.imu.reset_heading(0)
- 
+
+    sivuv(90, 300)
+
     if arm_sensor.color(True) == Color.BLACK:
         run1()
     elif arm_sensor.color(True) == Color.WHITE:
