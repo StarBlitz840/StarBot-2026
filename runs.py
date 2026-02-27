@@ -64,15 +64,13 @@ def run1():
     turn_time(100, 1000)
     sivuv(0, 300)
     chasis.straight(-90)
+    chasis.turn(-96)
+    chasis.straight(-300)
+    chasis.straight(500)
+    chasis.turn(-45)
+    chasis.straight(200)
     chasis.turn(-90)
-    chasis.straight(-100)
-    
-    #turn_time(-80, 1000)
-    #chasis.straight(-310)
-    #chasis.turn(-100)
-    #chasis.straight(120)
-    #chasis.turn(-115)
-    #chasis.straight(-500)
+    chasis.straight(1000)
 
 def run2():
     # chasis.settings(straight_speed=100, turn_rate=100)
