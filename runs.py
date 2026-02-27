@@ -43,14 +43,20 @@ def sivuv(angle, speed):
     dana = angle - hub.imu.heading()
     chasis.turn(dana)
 
-def until_black(p_speed): 
+def until_black(p_speed, max_time: int = 10000):
     # This function moves the robot until it is over a black line.
+    func_time = 0
     chasis.drive(p_speed, 0)
     # Main loop, constantly checking if said condition is met.
     while True:
         if map_sensor.reflection() < 12:
             chasis.stop() 
             break
+        if func_time >= max_time:
+            break
+        else:
+            func_time += 1
+            wait(1)
     chasis.stop()
 
 def run1():
@@ -82,12 +88,11 @@ def run2():
     chasis.straight(350)
     turn_time(300, 350)
     chasis.straight(-200)
-    sivuv(90, 300)
-    turn_time(10, 2000, False)
-    until_black(-225)
-    sivuv(92, 300)
+    sivuv(100, 300)
+    chasis.straight(-600)
+    sivuv(88, 300)
     chasis.straight(-10)
-    sivuv(82, 300)
+    sivuv(88, 300)
     right_arm.run_time(1000, 5000, wait=False)
     turn_time(10, 5000)
     sivuv(90, 300)
@@ -100,15 +105,15 @@ def run2():
     left_arm.run_time(600, 2000)
     chasis.straight(-425)
     left_arm.run_angle(1000, 300, wait=False)
-    sivuv(0, 300)
+    chasis.turn(-45)
     chasis.straight(1000)
-    chasis.turn(-60, wait=False)
+    chasis.turn(-90, wait=False)
     chasis.straight(1000)
 
 def run5():
     global skip_done
     if skip_done:
-        chasis.straight(800)
+        chasis.straight(850)
         chasis.settings(1000)
         chasis.straight(-2000)
         return False
@@ -122,31 +127,22 @@ def run5():
 
 def run3():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
-    chasis.straight(1030)
+    chasis.straight(1025)
     chasis.turn(90)
-    chasis.straight(225)
+    chasis.straight(300)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
-    chasis.straight(-250)
-    chasis.turn(-30)
-    chasis.straight(-132)
-    chasis.turn(45)
     chasis.straight(-150)
-    chasis.turn(30)
-    chasis.turn(-30)
-    chasis.straight(150)
-    chasis.turn(45)
+    chasis.turn(135)
     chasis.straight(200)
-    chasis.turn(30)
-    chasis.straight(600)
-    chasis.turn(10)
+    chasis.turn(90)
     chasis.straight(400)
 
 def run4():
      chasis.straight(830)
      chasis.straight(-200)
      chasis.settings(100)
-     chasis.straight(50)
+     chasis.straight(60)
      left_arm.run_time(-300, 1500)
      chasis.straight(-100)
      chasis.settings(500)
@@ -159,8 +155,6 @@ def run_by_color():
     # This function uses the arm color sensor to automatically start its run.
     # Reset the heading of the robot.
     hub.imu.reset_heading(0)
-
-    sivuv(90, 300)
 
     if arm_sensor.color(True) == Color.BLACK:
         run1()
