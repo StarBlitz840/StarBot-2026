@@ -30,7 +30,7 @@ skip_done = False
 arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
 
 #Define chasis
-chasis = DriveBase(left_wheel, right_wheel, 80, 80)
+chasis = DriveBase(left_wheel, right_wheel, 62.4, 62.4)
 chasis.use_gyro(True)
 
 chasis.settings(300, turn_rate=100)
@@ -74,30 +74,30 @@ def run1():
 
 def run2():
     # chasis.settings(straight_speed=100, turn_rate=100)
-    chasis.straight(500)
+    chasis.straight(390)
     left_arm.run_angle(1000, -500, wait=False)
     chasis.turn(45)
-    chasis.straight(625)
+    chasis.straight(515)
     chasis.turn(45)
-    chasis.straight(300)
-    chasis.straight(-710)
+    chasis.straight(285)
+    chasis.straight(-425)
     sivuv(82, 300)
     right_arm.run_time(1000, 5000, wait=False)
     turn_time(10, 5000)
     sivuv(90, 300)
-    chasis.straight(180)
+    chasis.straight(115)
     left_arm.run_time(-1000, 2000)
     left_arm.run_time(1000, 100)
     sivuv(57, 300)
     chasis.straight(1) # Gives sivuv() time to run.
-    chasis.straight(250)
+    chasis.straight(195)
     left_arm.run_time(600, 2000)
-    chasis.straight(-425)
+    chasis.straight(-331.5)
     left_arm.run_angle(1000, 300, wait=False)
     sivuv(0, 300)
-    chasis.straight(1000)
-    chasis.turn(-60, wait=False)
-    chasis.straight(1000)
+    chasis.straight(780)
+    chasis.turn(-60)
+    chasis.straight(780)
 
 def run5():
     global skip_done
