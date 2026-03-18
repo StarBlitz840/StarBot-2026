@@ -56,21 +56,21 @@ def until_black(p_speed):
 def run1():
     global sivuv
     right_arm.run_time(500, 500)
-    chasis.straight(790)
+    chasis.straight(616)
     for i in range(4):
         right_arm.run_time(1200, 790)
         right_arm.run_time(-1100, 770)
-    chasis.straight(140)
+    chasis.straight(109)
     turn_time(100, 1000)
     sivuv(0, 300)
-    chasis.straight(-90)
+    chasis.straight(-70)
     chasis.turn(-96)
-    chasis.straight(-300)
-    chasis.straight(500)
+    chasis.straight(-234)
+    chasis.straight(390)
     chasis.turn(-45)
-    chasis.straight(200)
+    chasis.straight(156)
     chasis.turn(-90)
-    chasis.straight(1000)
+    chasis.straight(780)
 
 def run2():
     # chasis.settings(straight_speed=100, turn_rate=100)
@@ -102,49 +102,49 @@ def run2():
 def run5():
     global skip_done
     if skip_done:
-        chasis.straight(800)
+        chasis.straight(663)
         chasis.settings(1000)
-        chasis.straight(-2000)
+        chasis.straight(-1560)
         return False
     else:
-        chasis.straight(880)
+        chasis.straight(686)
         right_arm.run_angle(500, 180)
-        chasis.straight(-1000)
+        chasis.straight(-780)
         return True
 
 
 
 def run3():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
-    chasis.straight(1030)
+    chasis.straight(803)
     chasis.turn(90)
-    chasis.straight(225)
+    chasis.straight(175)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
-    chasis.straight(-250)
+    chasis.straight(-195)
     chasis.turn(-30)
-    chasis.straight(-132)
+    chasis.straight(-103)
     chasis.turn(45)
-    chasis.straight(-150)
+    chasis.straight(-117)
     chasis.turn(30)
     chasis.turn(-30)
-    chasis.straight(150)
+    chasis.straight(117)
     chasis.turn(45)
-    chasis.straight(200)
+    chasis.straight(156)
     chasis.turn(30)
-    chasis.straight(600)
+    chasis.straight(468)
     chasis.turn(10)
-    chasis.straight(400)
+    chasis.straight(312)
 
 def run4():
-     chasis.straight(830)
-     chasis.straight(-200)
-     chasis.settings(100)
-     chasis.straight(50)
-     left_arm.run_time(-300, 1500)
-     chasis.straight(-100)
-     chasis.settings(500)
-     chasis.straight(-2000)
+    chasis.straight(647)
+    chasis.straight(-156)
+    chasis.settings(100)
+    chasis.straight(39)
+    left_arm.run_time(-300, 1500)
+    chasis.straight(-78)
+    chasis.settings(500)
+    chasis.straight(-1560)
 
 def run_by_color():
     global skip_done
