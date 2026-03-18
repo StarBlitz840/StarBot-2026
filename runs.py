@@ -29,11 +29,9 @@ skip_done = False
 # Define available colors for runs
 arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
 
-#Define chasis
-chasis = DriveBase(left_wheel, right_wheel, 62.4, 62.4)
-chasis.use_gyro(True)
-
-chasis.settings(300, turn_rate=100)
+#Define chassis
+chassis = DriveBase(left_wheel, right_wheel, 62.4, 62.4)
+chassis.use_gyro(True)
 
 def turn_time(speed, time):
     right_wheel.run_time(speed , time, wait=False)
@@ -41,110 +39,110 @@ def turn_time(speed, time):
 
 def sivuv(angle, speed):
     dana = angle - hub.imu.heading()
-    chasis.turn(dana)
+    chassis.turn(dana)
 
 def until_black(p_speed): 
     # This function moves the robot until it is over a black line.
-    chasis.drive(p_speed, 0)
+    chassis.drive(p_speed, 0)
     # Main loop, constantly checking if said condition is met.
     while True:
         if map_sensor.reflection() < 12:
-            chasis.stop() 
+            chassis.stop() 
             break
-    chasis.stop()
+    chassis.stop()
 
 def run1():
     global sivuv
     right_arm.run_time(500, 500)
-    chasis.straight(616)
+    chassis.straight(616)
     for i in range(4):
         right_arm.run_time(1200, 790)
         right_arm.run_time(-1100, 770)
-    chasis.straight(109)
+    chassis.straight(109)
     turn_time(100, 1000)
     sivuv(0, 300)
-    chasis.straight(-70)
-    chasis.turn(-96)
-    chasis.straight(-234)
-    chasis.straight(390)
-    chasis.turn(-45)
-    chasis.straight(156)
-    chasis.turn(-90)
-    chasis.straight(780)
+    chassis.straight(-70)
+    chassis.turn(-96)
+    chassis.straight(-234)
+    chassis.straight(390)
+    chassis.turn(-45)
+    chassis.straight(156)
+    chassis.turn(-90)
+    chassis.straight(780)
 
 def run2():
-    # chasis.settings(straight_speed=100, turn_rate=100)
-    chasis.straight(390)
+    # chassis.settings(straight_speed=100, turn_rate=100)
+    chassis.straight(390)
     left_arm.run_angle(1000, -500, wait=False)
-    chasis.turn(45)
-    chasis.straight(515)
-    chasis.turn(45)
-    chasis.straight(285)
-    chasis.straight(-425)
+    chassis.turn(45)
+    chassis.straight(540)
+    chassis.turn(45)
+    chassis.straight(285)
+    chassis.straight(-480)
     sivuv(82, 300)
     right_arm.run_time(1000, 5000, wait=False)
     turn_time(10, 5000)
     sivuv(90, 300)
-    chasis.straight(115)
+    chassis.straight(115)
     left_arm.run_time(-1000, 2000)
     left_arm.run_time(1000, 100)
-    sivuv(57, 300)
-    chasis.straight(1) # Gives sivuv() time to run.
-    chasis.straight(195)
+    sivuv(60, 300)
+    chassis.straight(1) # Gives sivuv() time to run.
+    chassis.straight(195)
     left_arm.run_time(600, 2000)
-    chasis.straight(-331.5)
+    chassis.straight(-331.5)
     left_arm.run_angle(1000, 300, wait=False)
     sivuv(0, 300)
-    chasis.straight(780)
-    chasis.turn(-60)
-    chasis.straight(780)
+    chassis.straight(780)
+    chassis.turn(-60)
+    chassis.straight(780)
 
 def run5():
     global skip_done
     if skip_done:
-        chasis.straight(663)
-        chasis.settings(1000)
-        chasis.straight(-1560)
+        chassis.straight(663)
+        chassis.settings(1000)
+        chassis.straight(-1560)
         return False
     else:
-        chasis.straight(686)
+        chassis.straight(686)
         right_arm.run_angle(500, 180)
-        chasis.straight(-780)
+        chassis.straight(-780)
         return True
 
 
 
 def run3():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
-    chasis.straight(803)
-    chasis.turn(90)
-    chasis.straight(175)
+    chassis.straight(803)
+    chassis.turn(90)
+    chassis.straight(175)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(2000,2500)
-    chasis.straight(-195)
-    chasis.turn(-30)
-    chasis.straight(-103)
-    chasis.turn(45)
-    chasis.straight(-117)
-    chasis.turn(30)
-    chasis.turn(-30)
-    chasis.straight(117)
-    chasis.turn(45)
-    chasis.straight(156)
-    chasis.turn(30)
-    chasis.straight(468)
-    chasis.turn(10)
-    chasis.straight(312)
+    chassis.straight(-195)
+    chassis.turn(-30)
+    chassis.straight(-103)
+    chassis.turn(45)
+    chassis.straight(-117)
+    chassis.turn(30)
+    chassis.turn(-30)
+    chassis.straight(117)
+    chassis.turn(45)
+    chassis.straight(156)
+    chassis.turn(30)
+    chassis.straight(468)
+    chassis.turn(10)
+    chassis.straight(312)
 
 def run4():
-    chasis.straight(647)
-    chasis.straight(-156)
-    chasis.settings(100)
-    chasis.straight(39)
+    chassis.straight(647)
+    chassis.straight(-180)
+    chassis.settings(100)
+    chassis.straight(70)
     left_arm.run_time(-300, 1500)
-    chasis.straight(-78)
-    chasis.settings(500)
-    chasis.straight(-1560)
+    chassis.straight(-80)
+    chassis.settings(600)
+    chassis.straight(-1200)
 
 def run_by_color():
     global skip_done
@@ -166,10 +164,12 @@ def run_by_color():
     elif arm_sensor.color(True) == Color.BLUE:
         skip_done = run5()
 
-selected = hub_menu("R", "1", "2", "3", "4", "5",)
+chassis.settings(300, turn_rate=100)
+
+selected = hub_menu("R", "1", "2", "3", "4", "5")
 if selected == "1":
     run1()
-
+    
 if selected == "2":
     run2()
 
