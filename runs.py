@@ -33,9 +33,9 @@ arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW,
 chassis = DriveBase(left_wheel, right_wheel, 62.4, 80)
 chassis.use_gyro(True)
 
-def turn_time(speed, time):
+def turn_time(speed, time, p_wait: bool = True):
     right_wheel.run_time(speed , time, wait=False)
-    left_wheel.run_time(speed * -1, time, wait=True)
+    left_wheel.run_time(speed * -1, time, wait=p_wait)
 
 def drive_time(speed, time):
     right_wheel.run_time(-speed , time, wait=False)
@@ -46,7 +46,7 @@ def sivuv(angle, speed):
     dana = angle - hub.imu.heading()
     chassis.turn(dana)
 
-def until_black(p_speed): 
+def until_black(p_speed, max_time: int = 10000):
     # This function moves the robot until it is over a black line.
     chassis.drive(p_speed, 0)
     # Main loop, constantly checking if said condition is met.
@@ -161,10 +161,9 @@ def run_by_color():
     print(arm_sensor.color())
     print(arm_sensor.hsv())
     # This function uses the arm color sensor to automatically start its run.
-
     # Reset the heading of the robot.
     hub.imu.reset_heading(0)
- 
+
     if arm_sensor.color(True) == Color.BLACK:
         run1()
     elif arm_sensor.color(True) == Color.WHITE:
