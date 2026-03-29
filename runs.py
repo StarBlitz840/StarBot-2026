@@ -30,12 +30,17 @@ skip_done = False
 arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
 
 #Define chassis
-chassis = DriveBase(left_wheel, right_wheel, 62.4, 62.4)
+chassis = DriveBase(left_wheel, right_wheel, 62.4, 80)
 chassis.use_gyro(True)
 
 def turn_time(speed, time):
     right_wheel.run_time(speed , time, wait=False)
     left_wheel.run_time(speed * -1, time, wait=True)
+
+def drive_time(speed, time):
+    right_wheel.run_time(-speed , time, wait=False)
+    left_wheel.run_time(-speed, time, wait=True)
+
 
 def sivuv(angle, speed):
     dana = angle - hub.imu.heading()
@@ -97,6 +102,47 @@ def run2():
     chassis.turn(-60)
     chassis.straight(780)
 
+def run3():
+    # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
+    left_arm.run_time(-2000,2500,wait=False)
+    chassis.straight(450)
+    chassis.curve(300, 45)
+    chassis.turn(-90)
+    chassis.straight(300)
+    left_arm.run_time(2000,2500,wait=False)
+    chassis.straight(-200)
+    chassis.turn(135)
+    chassis.straight(400)
+    chassis.turn(-90)
+    chassis.straight(25)
+    left_arm.run_time(-2000,2500)
+    left_arm.run_time(2000,2500, wait=False)
+    chassis.turn(-90)
+    chassis.straight(430)
+    chassis.turn(-90)
+    chassis.straight(1000)
+    # chassis.turn(45)
+    # chassis.straight(-117)
+    # chassis.turn(30)
+    # chassis.turn(-30)
+    # chassis.straight(117)
+    # chassis.turn(45)
+    # chassis.straight(156)
+    # chassis.turn(30)
+    # chassis.straight(468)
+    # chassis.turn(10)
+    # chassis.straight(312)
+
+def run4():
+    chassis.straight(647)
+    chassis.straight(-180)
+    chassis.settings(100)
+    chassis.straight(70)
+    left_arm.run_time(-300, 1500)
+    chassis.straight(-80)
+    chassis.settings(600)
+    chassis.straight(-1200)
+
 def run5():
     global skip_done
     if skip_done:
@@ -109,40 +155,6 @@ def run5():
         right_arm.run_angle(500, 180)
         chassis.straight(-780)
         return True
-
-
-
-def run3():
-    # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
-    chassis.straight(803)
-    chassis.turn(90)
-    chassis.straight(175)
-    left_arm.run_time(-2000,2500)
-    left_arm.run_time(2000,2500)
-    chassis.straight(-195)
-    chassis.turn(-30)
-    chassis.straight(-103)
-    chassis.turn(45)
-    chassis.straight(-117)
-    chassis.turn(30)
-    chassis.turn(-30)
-    chassis.straight(117)
-    chassis.turn(45)
-    chassis.straight(156)
-    chassis.turn(30)
-    chassis.straight(468)
-    chassis.turn(10)
-    chassis.straight(312)
-
-def run4():
-    chassis.straight(647)
-    chassis.straight(-180)
-    chassis.settings(100)
-    chassis.straight(70)
-    left_arm.run_time(-300, 1500)
-    chassis.straight(-80)
-    chassis.settings(600)
-    chassis.straight(-1200)
 
 def run_by_color():
     global skip_done
