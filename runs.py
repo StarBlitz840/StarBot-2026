@@ -106,12 +106,12 @@ def until_black(p_speed, max_time: int = 10000):
 
 def run1():
     global sivuv
-    right_arm.run_time(1000, 500)
-    chassis.straight(616)
+    right_arm.run_time(1000, 500, wait=False)
+    chassis.straight(605)
     for i in range(4):
-        right_arm.run_time(1200, 790)
-        right_arm.run_time(-1100, 770)
-    chassis.straight(109)
+        right_arm.run_time(1200, 890)
+        right_arm.run_time(-1100, 870)
+    chassis.straight(120)
     turn_time(100, 1000)
     sivuv(0, 300)
     chassis.straight(-70)
@@ -120,6 +120,7 @@ def run1():
     chassis.straight(390)
     chassis.turn(-45)
     chassis.straight(156)
+    chassis.straight(-25)
     chassis.turn(-90)
     chassis.straight(780)
 
