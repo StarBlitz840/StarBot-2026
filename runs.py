@@ -33,6 +33,12 @@ arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW,
 chassis = DriveBase(left_wheel, right_wheel, 62.4, 80)
 chassis.use_gyro(True)
 
+def check_battery_percent():
+    v = hub.battery.voltage()  # Read battery voltage (mV)
+    percent = int((v - 7000) * 100 // 1200)  # Convert voltage to percentage
+    return percent
+print("Battery percent:", f"{check_battery_percent()}%")
+
 def turn_time(speed, time, p_wait: bool = True):
     right_wheel.run_time(speed , time, wait=False)
     left_wheel.run_time(speed * -1, time, wait=p_wait)
@@ -104,23 +110,23 @@ def run2():
 
 def run3():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
-    # left_arm.run_time(-2000,2500,wait=False)
-    # chassis.straight(450)
-    # chassis.curve(300, 45)
-    # chassis.turn(-90)
-    # chassis.straight(300)
-    # left_arm.run_time(2000,2500,wait=False)
-    # chassis.straight(-200)
-    # chassis.turn(135)
-    # chassis.straight(380)
-    # chassis.turn(-90)
-    # chassis.straight(25)
+    left_arm.run_time(-2000,2500,wait=False)
+    chassis.straight(450)
+    chassis.curve(300, 45)
+    chassis.turn(-90)
+    chassis.straight(300)
+    left_arm.run_time(2000,2500,wait=False)
+    chassis.straight(-200)
+    chassis.turn(135)
+    chassis.straight(380)
+    chassis.turn(-90)
+    chassis.straight(25)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(3000,1500)
-    # chassis.turn(-90)
-    # chassis.straight(430)
-    # chassis.turn(-90)
-    # chassis.straight(1000)
+    chassis.turn(-90)
+    chassis.straight(430)
+    chassis.turn(-90)
+    chassis.straight(1000)
 
 def run4():
     chassis.straight(647)
