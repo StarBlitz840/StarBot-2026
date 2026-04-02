@@ -88,8 +88,11 @@ def run2():
     chassis.straight(540)
     chassis.turn(45)
     chassis.straight(285)
-    chassis.straight(-480)
-    sivuv(82, 300)
+    chassis.straight(-470)
+    chassis.turn(8)
+    chassis.straight(-20)
+    chassis.turn(-15)
+    #sivuv(82, 300)
     #panda blitz is the best team in the בונקר!!!!
     right_arm.run_time(1000, 5000, wait=False)
     turn_time(10, 5000)
@@ -101,7 +104,7 @@ def run2():
     chassis.straight(1) # Gives sivuv() time to run.
     chassis.straight(195)
     left_arm.run_time(600, 2000)
-    chassis.straight(-331.5)
+    chassis.straight(-300)
     left_arm.run_angle(1000, 300, wait=False)
     sivuv(0, 300)
     chassis.straight(780)
