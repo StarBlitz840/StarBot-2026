@@ -39,8 +39,47 @@ def onboard_diagnosis():
     amperage = hub.battery.current()    # Read battery current (mA)
     percent = int((voltage - 7000) * 100 // 1200)     # Convert voltage to percentage
     charge = int(amperage * voltage) # Calculate the charge of the battery (mW)
+
     # Movement accuracy
+    move_dist_before = []
+    move_dist_after = []
+    move_error = ["Feature defunct // Reason: Erez"]
+    # tof_sensor = UltrasonicSensor(Port.C)   # Define a Time Of Flight sensor
+    # for i in range(3):
+    #     if i == 0:  # Test different speeds based on iteration
+    #         chassis.settings(300)
+    #     if i == 1:
+    #         chassis.settings(500)
+    #     if i == 2:
+    #         chassis.settings(1000)
+    #         
+    #     move_dist_before.append(tof_sensor.distance())     # Log distance before movement
+    #     chassis.straight(20)    # Move 2cm
+    #     move_dist_after.append(tof_sensor.distance())      # Log distance after movement
+    #     move_error.append((move_dist_before(i) + move_dist_after(i)) / 2)  # Calculate the error in each iteration
     
+    # Turn accuracy
+    turn_dist_before = []
+    turn_dist_after = []
+    turn_error = []
+    for i in range(3):
+        if i == 0:  # Test different speeds based on iteration
+            chassis.settings(turn_rate=300)
+        if i == 1:
+            chassis.settings(turn_rate=500)
+        if i == 2:
+            chassis.settings(turn_rate=1000)
+        hub.imu.reset_heading(0)    # Reset robot heading
+
+        turn_dist_before.append(hub.imu.heading())     # Log heading before movement
+        chassis.straight(20)    # Turn 90 degrees
+        turn_dist_after.append(hub.imu.heading())      # Log heading after movement
+        turn_error.append((turn_dist_after[i] - turn_dist_before[i]) - 90)  # Calculate the error in each iteration
+    
+    print("Battery percentege: ", percent, "% // Available power: ", charge, "mW\nMovement accuracy:\n" \
+    "Standard (300) - Straight: ", move_error[0], " // Turn: ", turn_error(0), \
+    "Fast (500) - Straight: ", move_error[1], " // Turn: ", turn_error[1], \
+    "Ludicrous (1,000) - Straight: ", move_error[2], " // Turn: ", turn_error[2])
 
 
 def turn_time(speed, time, p_wait: bool = True):
@@ -181,7 +220,7 @@ def run_by_color():
 
 chassis.settings(300, turn_rate=100)
 
-selected = hub_menu("R", "1", "2", "3", "4", "5")
+selected = hub_menu("R", "1", "2", "3", "4", "5", "D")
 if selected == "1":
     run1()
     
@@ -199,3 +238,6 @@ if selected == "5":
 
 if selected == "R":
     run_by_color()
+
+if selected == "D":
+    onboard_diagnosis()
