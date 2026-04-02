@@ -33,11 +33,15 @@ arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW,
 chassis = DriveBase(left_wheel, right_wheel, 62.4, 80)
 chassis.use_gyro(True)
 
-def check_battery_percent():
-    v = hub.battery.voltage()  # Read battery voltage (mV)
-    percent = int((v - 7000) * 100 // 1200)  # Convert voltage to percentage
-    return percent
-print("Battery percent:", f"{check_battery_percent()}%")
+def onboard_diagnosis():
+    # Battery diagnosis
+    voltage = hub.battery.voltage()     # Read battery voltage (mV)
+    amperage = hub.battery.current()    # Read battery current (mA)
+    percent = int((voltage - 7000) * 100 // 1200)     # Convert voltage to percentage
+    charge = int(amperage * voltage) # Calculate the charge of the battery (mW)
+    # Movement accuracy
+    
+
 
 def turn_time(speed, time, p_wait: bool = True):
     right_wheel.run_time(speed , time, wait=False)
