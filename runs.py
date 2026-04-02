@@ -44,9 +44,8 @@ def turn_time(speed, time, p_wait: bool = True):
     left_wheel.run_time(speed * -1, time, wait=p_wait)
 
 def drive_time(speed, time):
-    right_wheel.run_time(-speed , time, wait=False)
-    left_wheel.run_time(-speed, time, wait=True)
-
+    chassis.drive(speed,0)
+    wait(time)
 
 def sivuv(angle, speed):
     dana = angle - hub.imu.heading()
@@ -91,6 +90,7 @@ def run2():
     chassis.straight(285)
     chassis.straight(-480)
     sivuv(82, 300)
+    #panda blitz is the best team in the בונקר!!!!
     right_arm.run_time(1000, 5000, wait=False)
     turn_time(10, 5000)
     sivuv(90, 300)
@@ -114,9 +114,10 @@ def run3():
     chassis.straight(450)
     chassis.curve(300, 45)
     chassis.turn(-90)
-    chassis.straight(300)
-    left_arm.run_time(2000,2500,wait=False)
+    drive_time(300,1500)
+    right_arm.run_time(-2000,1500)
     chassis.straight(-200)
+    left_arm.run_time(2000,2500,wait=False)
     chassis.turn(135)
     chassis.straight(380)
     chassis.turn(-90)
@@ -126,6 +127,7 @@ def run3():
     chassis.turn(-90)
     chassis.straight(430)
     chassis.turn(-90)
+    chassis.settings(1000)
     chassis.straight(1000)
 
 def run4():
