@@ -40,10 +40,17 @@ def onboard_diagnosis():
     percent = int((voltage - 7000) * 100 // 1200)     # Convert voltage to percentage
     charge = int(amperage * voltage) # Calculate the charge of the battery (mW)
 
+    # motor health
+    right_arm.run_time(20000, 1000, wait=False)
+    left_arm.run_time(20000, 1000, wait=False)
+    wait(500)
+    right_arm_speed = right_arm.speed()
+    left_arm_speed = left_arm.speed()
+
     # Movement accuracy
     move_dist_before = []
     move_dist_after = []
-    move_error = ["Feature defunct // Reason: Erez"]
+    move_error = ["Feature defunct // Reason: Erez", "Feature defunct // Reason: Erez", "Feature defunct // Reason: Erez"]
     # tof_sensor = UltrasonicSensor(Port.C)   # Define a Time Of Flight sensor
     # for i in range(3):
     #     if i == 0:  # Test different speeds based on iteration
@@ -69,17 +76,19 @@ def onboard_diagnosis():
             chassis.settings(turn_rate=500)
         if i == 2:
             chassis.settings(turn_rate=1000)
+        chassis.stop()
         hub.imu.reset_heading(0)    # Reset robot heading
 
         turn_dist_before.append(hub.imu.heading())     # Log heading before movement
-        chassis.straight(20)    # Turn 90 degrees
+        chassis.turn(90)    # Turn 90 degrees
         turn_dist_after.append(hub.imu.heading())      # Log heading after movement
         turn_error.append((turn_dist_after[i] - turn_dist_before[i]) - 90)  # Calculate the error in each iteration
     
     print("Battery percentege: ", percent, "% // Available power: ", charge, "mW\nMovement accuracy:\n" \
-    "Standard (300) - Straight: ", move_error[0], " // Turn: ", turn_error(0), \
-    "Fast (500) - Straight: ", move_error[1], " // Turn: ", turn_error[1], \
-    "Ludicrous (1,000) - Straight: ", move_error[2], " // Turn: ", turn_error[2])
+    "Standard (300) - Straight: ", move_error[0], " // Turn: ", turn_error[0], "\n" \
+    "Fast (500) - Straight: ", move_error[1], " // Turn: ", turn_error[1], "\n" \
+    "Ludicrous (1,000) - Straight: ", move_error[2], " // Turn: ", turn_error[2], \
+    "\nMotor health:\nRight motor: ", right_arm_speed, " // Left motor: ", left_arm_speed)
 
 
 def turn_time(speed, time, p_wait: bool = True):
@@ -111,7 +120,7 @@ def run1():
     for i in range(4):
         right_arm.run_time(1200, 890)
         right_arm.run_time(-1100, 870)
-    chassis.straight(120)
+    chassis.straight(115)
     turn_time(100, 1000)
     sivuv(0, 300)
     chassis.straight(-70)
@@ -207,6 +216,10 @@ def run_by_color():
     # This function uses the arm color sensor to automatically start its run.
     # Reset the heading of the robot.
     hub.imu.reset_heading(0)
+    right_arm.stop()
+    left_arm.stop()
+    right_arm.dc(100)
+    left_arm.dc(100)
 
     if arm_sensor.color(True) == Color.BLACK:
         run1()
