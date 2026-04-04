@@ -117,9 +117,9 @@ def run1():
     global sivuv
     right_arm.run_time(1000, 500, wait=False)
     chassis.straight(605)
-    for i in range(4):
+    for i in range(5):
         right_arm.run_time(1200, 890)
-        right_arm.run_time(-1100, 870)
+        right_arm.run_time(-1200, 800)
     chassis.straight(115)
     turn_time(100, 1000)
     sivuv(0, 300)
@@ -148,18 +148,19 @@ def run2():
     #sivuv(82, 300)
     #panda blitz is the best team in the בונקר!!!!
     right_arm.run_time(1000, 5000, wait=False)
-    turn_time(10, 5000)
+    turn_time(10, 4500)
     sivuv(90, 300)
-    chassis.straight(115)
+    chassis.straight(105)
     left_arm.run_time(-1000, 2000)
     left_arm.run_time(1000, 100)
-    sivuv(60, 300)
-    chassis.straight(1) # Gives sivuv() time to run.
-    chassis.straight(195)
+    sivuv(66, 300)
+    chassis.straight(210)
     left_arm.run_time(600, 2000)
+    left_arm.run_time(600, 750)
     chassis.straight(-300)
     left_arm.run_angle(1000, 300, wait=False)
     sivuv(0, 300)
+    chassis.settings(1000)
     chassis.straight(780)
     chassis.turn(-60)
     chassis.straight(780)
@@ -175,9 +176,9 @@ def run3():
     chassis.straight(-200)
     left_arm.run_time(2000,2500,wait=False)
     chassis.turn(135)
-    chassis.straight(380)
+    chassis.straight(370)
     chassis.turn(-90)
-    chassis.straight(25)
+    chassis.straight(40)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(3000,1500)
     chassis.turn(-90)
@@ -218,8 +219,6 @@ def run_by_color():
     hub.imu.reset_heading(0)
     right_arm.stop()
     left_arm.stop()
-    right_arm.dc(100)
-    left_arm.dc(100)
 
     if arm_sensor.color(True) == Color.BLACK:
         run1()
