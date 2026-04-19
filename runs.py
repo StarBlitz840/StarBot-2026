@@ -1,6 +1,6 @@
 from pybricks.hubs import PrimeHub
 from pybricks.pupdevices import Motor, ColorSensor, UltrasonicSensor, ForceSensor
-from pybricks.parameters import Button, Color, Direction, Port, Side, Stop
+from pybricks.parameters import Button, Color, Direction, Port, Side, Stop, Icon
 from pybricks.robotics import DriveBase
 from pybricks.tools import wait, StopWatch
 from pybricks.tools import hub_menu
@@ -113,6 +113,38 @@ def until_black(p_speed, max_time: int = 10000):
             break
     chassis.stop()
 
+def color_on():
+    brightness = list(range(0, 100, 4)) + list(range(100, 0, -4))
+    hub.display.animate([Icon.HEART * i / 100 for i in brightness], 30)
+    hub.light.animate([Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.CYAN, Color.BLUE, Color.VIOLET, Color.MAGENTA], interval=150)
+    while True:
+        wait(100)
+
+def chack_button_pressed():
+    pressed = []
+    while not any(pressed):
+        pressed = hub.buttons.pressed()
+        wait(10)
+
+    hub.display.icon(Icon.CIRCLE)
+
+    while any(hub.buttons.pressed()):
+        wait(10)
+
+    if Button.LEFT in pressed:
+        hub.display.icon(Icon.ARROW_LEFT_DOWN)
+    elif Button.RIGHT in pressed:
+        hub.display.icon(Icon.ARROW_RIGHT_DOWN)
+    elif Button.BLUETOOTH in pressed:
+        hub.display.icon(Icon.ARROW_RIGHT_UP)
+    wait(5000)
+    
+def we_won():
+    hub.display.text("we won! we won!!!")
+
+def shubi_dubi():
+    hub.display.text("Shubi Dubi and The Cool Guy...")
+
 def run1():
     global sivuv
     right_arm.run_time(1000, 500, wait=False)
@@ -219,38 +251,87 @@ def run_by_color():
     hub.imu.reset_heading(0)
     right_arm.stop()
     left_arm.stop()
+    acolor = arm_sensor.color()
+    ahsv = arm_sensor.hsv()
 
     if arm_sensor.color(True) == Color.BLACK:
+        hub.display.number(01)
+        hub.light.on(ahsv)
         run1()
     elif arm_sensor.color(True) == Color.WHITE:
+        hub.display.number(02)
+        hub.light.on(ahsv)
         run2()
     elif arm_sensor.color() == Color.RED:
+        hub.display.number(03)
+        hub.light.on(ahsv)
         run3()
     elif arm_sensor.color() == Color.YELLOW:
+        hub.display.number(04)
+        hub.light.on(ahsv)
         run4()
     elif arm_sensor.color(True) == Color.BLUE:
+        hub.display.number(05)
+        hub.light.on(ahsv)
         skip_done = run5()
 
 chassis.settings(300, turn_rate=100)
 
-selected = hub_menu("R", "1", "2", "3", "4", "5", "D")
+s = hub.display.icon(Icon.HEART)
+
+# selected = hub_menu("R", "1", "2", "3", "4", "5","W", "C","P","D")
+selected = hub_menu("R", "1", "2", "3", "4", "5","S")
 if selected == "1":
+    hub.light.blink(Color.GREEN, [300, 300])
     run1()
     
 if selected == "2":
+    hub.light.blink(Color.RED, [300, 300])
     run2()
 
 if selected == "3":
+    hub.light.blink(Color.ORANGE, [300, 300])
     run3()
 
 if selected == "4":
+    hub.light.blink(Color.WHITE, [300, 300])
     run4()
 
 if selected == "5":
+    hub.light.blink(Color.BLUE, [300, 300])
     run5()
 
 if selected == "R":
     run_by_color()
 
-if selected == "D":
-    onboard_diagnosis()
+if selected == "S":
+    selected2 = hub_menu("D","W", "C","P")
+
+    if selected2 == "D":
+        hub.light.animate([Color.MAGENTA,Color(h=355, s=90, v=43)],interval=200)
+        onboard_diagnosis()
+
+    if selected2 == "P":
+        hub.light.animate([Color.CYAN,Color.VIOLET],interval=200)
+        chack_button_pressed()
+    
+    if selected2 == "C":
+        color_on()
+
+    if selected2 == "W":
+        pressed = []
+        while not any(pressed):
+            pressed = hub.buttons.pressed()
+            wait(10)
+
+        hub.display.icon(Icon.CIRCLE)
+
+        while any(hub.buttons.pressed()):
+            wait(10)
+
+        if Button.LEFT in pressed:
+            we_won()
+        elif Button.RIGHT in pressed:
+            we_won()
+        elif Button.BLUETOOTH in pressed:
+            shubi_dubi()
