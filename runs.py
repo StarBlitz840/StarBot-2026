@@ -214,9 +214,9 @@ def run3():
     left_arm.run_time(-2000,2500)
     left_arm.run_time(3000,1500)
     chassis.turn(-90)
-    chassis.straight(430)
-    chassis.turn(-90)
+    chassis.straight(350)
     chassis.settings(1000)
+    chassis.curve(100,-90, then=Stop.NONE)
     chassis.straight(1000)
 
 def run4():
