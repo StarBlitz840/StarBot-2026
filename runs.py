@@ -148,7 +148,6 @@ def shubi_dubi():
 def run1():
     global sivuv
     right_arm.run_time(1000, 500, wait=False)
-    left_arm.run_time(1000, 500, wait=False)
     chassis.straight(605)
     for i in range(5):
         right_arm.run_time(1200, 890)
@@ -201,24 +200,25 @@ def run2():
 def run3():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     left_arm.run_time(-2000,2500,wait=False)
+    right_arm.run_time(5000,1500,wait=False)
     chassis.straight(450)
     chassis.curve(300, 45)
     chassis.turn(-90)
     drive_time(300,1500)
-    right_arm.run_time(-2000,1500)
+    right_arm.run_time(-5000,1500)
     chassis.straight(-200)
     left_arm.run_time(2000,2500,wait=False)
     chassis.turn(135)
-    chassis.straight(330)
+    chassis.straight(370)
     chassis.turn(-90)
     chassis.straight(40)
     left_arm.run_time(-2000,2500)
     left_arm.run_time(3000,1500)
-    chassis.turn(-90)
-    chassis.straight(350)
-    chassis.settings(1050)
-    chassis.curve(100,-90, then=Stop.NONE)
-    chassis.straight(1000)
+    chassis.turn(90)
+    chassis.straight(-170)
+    chassis.settings(1000)
+    chassis.curve(-300, 90, then=Stop.NONE)
+    chassis.straight(-1000)
 
 def run4():
     chassis.straight(647)
