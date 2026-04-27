@@ -90,7 +90,6 @@ def onboard_diagnosis():
     "Ludicrous (1,000) - Straight: ", move_error[2], " // Turn: ", turn_error[2], \
     "\nMotor health:\nRight motor: ", right_arm_speed, " // Left motor: ", left_arm_speed)
 
-
 def turn_time(speed, time, p_wait: bool = True):
     right_wheel.run_time(speed , time, wait=False)
     left_wheel.run_time(speed * -1, time, wait=p_wait)
@@ -148,6 +147,7 @@ def shubi_dubi():
 def run1():
     global sivuv
     right_arm.run_time(1000, 500, wait=False)
+    left_arm.run_time(1000, 1000, wait=False)
     chassis.straight(605)
     for i in range(5):
         right_arm.run_time(1200, 890)
@@ -157,7 +157,9 @@ def run1():
     sivuv(0, 300)
     chassis.straight(-70)
     chassis.turn(-96)
+    left_arm.run_time(-500, 1000, wait=False)
     chassis.straight(-234)
+    left_arm.run_time(500, 1000, wait=False)
     chassis.straight(390)
     chassis.turn(-45)
     chassis.straight(156)
@@ -281,7 +283,7 @@ chassis.settings(500, turn_rate=100)
 s = hub.display.icon(Icon.HEART)
 
 # selected = hub_menu("R", "1", "2", "3", "4", "5","W", "C","P","D")
-selected = hub_menu("R", "1", "2", "3", "4", "5","S")
+selected = hub_menu("R", "#", "1", "2", "3", "4", "5","S")
 if selected == "1":
     hub.light.blink(Color.GREEN, [300, 300])
     run1()
@@ -304,6 +306,24 @@ if selected == "5":
 
 if selected == "R":
     run_by_color()
+
+if selected == "#":
+    selected3 = hub_menu("5", "4", "3", "2", "1")
+    if selected3 == "1":
+        while True:
+            chassis.drive(speed=200, turn_rate=0)
+    if selected3 == "2":
+        while True:
+            chassis.drive(speed=400, turn_rate=0)
+    if selected3 == "3":
+        while True:
+            chassis.drive(speed=600, turn_rate=0)
+    if selected3 == "4":
+        while True:
+            chassis.drive(speed=800, turn_rate=0)
+    if selected3 == "5":
+        while True:
+            chassis.drive(speed=1000, turn_rate=0)
 
 if selected == "S":
     selected2 = hub_menu("D","W", "C","P")
