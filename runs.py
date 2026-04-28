@@ -27,7 +27,7 @@ skip_done = False
 # selected = hub_menu([Color.BLUE, Color.ORANGE, Color.BROWN, Color.GREEN, Color.YELLOW])
 
 # Define available colors for runs
-arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.BROWN])
+arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.GRAY])
 
 #Define chassis
 chassis = DriveBase(left_wheel, right_wheel, 62.4, 80)
@@ -168,6 +168,10 @@ def run1():
     chassis.straight(780)
 
 def run2():
+    right_arm.run_time(-300, 3000)
+    right_arm.run_time(300, 3000)
+
+def run3():
     # chassis.settings(straight_speed=100, turn_rate=100)
     chassis.straight(390)
     left_arm.run_angle(1000, -500, wait=False)
@@ -199,7 +203,7 @@ def run2():
     chassis.turn(-60)
     chassis.straight(780)
 
-def run3():
+def run4():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     left_arm.run_time(-2000,2500,wait=False)
     right_arm.run_time(5000,1500,wait=False)
@@ -222,7 +226,7 @@ def run3():
     chassis.curve(-300, 90, then=Stop.NONE)
     chassis.straight(-1000)
 
-def run4():
+def run5():
     chassis.straight(647)
     chassis.straight(-180)
     chassis.settings(100)
@@ -232,18 +236,10 @@ def run4():
     chassis.settings(600)
     chassis.straight(-1200)
 
-def run5():
-    global skip_done
-    if skip_done:
-        chassis.straight(663)
-        chassis.settings(1000)
-        chassis.straight(-1560)
-        return False
-    else:
-        chassis.straight(686)
-        right_arm.run_angle(500, 180)
-        chassis.straight(-780)
-        return True
+def run6():
+    chassis.straight(663)
+    chassis.settings(1000)
+    chassis.straight(-1560)
 
 def run_by_color():
     global skip_done
@@ -258,26 +254,30 @@ def run_by_color():
     ahsv = arm_sensor.hsv()
 
     if arm_sensor.color(True) == Color.BLACK:
-        hub.display.number(01)
+        hub.display.number(1)
         hub.light.on(ahsv)
         run1()
-    elif arm_sensor.color(True) == Color.WHITE:
-        hub.display.number(02)
+    elif arm_sensor.color(True) == Color.GRAY:
+        hub.display.number(2)
         hub.light.on(ahsv)
         run2()
-    elif arm_sensor.color() == Color.RED:
-        hub.display.number(03)
+    elif arm_sensor.color(True) == Color.WHITE:
+        hub.display.number(3)
         hub.light.on(ahsv)
         run3()
-    elif arm_sensor.color() == Color.YELLOW:
-        hub.display.number(04)
+    elif arm_sensor.color() == Color.RED:
+        hub.display.number(4)
         hub.light.on(ahsv)
         run4()
-    elif arm_sensor.color(True) == Color.BLUE:
-        hub.display.number(05)
+    elif arm_sensor.color() == Color.YELLOW:
+        hub.display.number(5)
         hub.light.on(ahsv)
-        skip_done = run5()
-
+        run5()
+    elif arm_sensor.color(True) == Color.BLUE:
+        hub.display.number(6)
+        hub.light.on(ahsv)
+        run6()
+    
 chassis.settings(500, turn_rate=100)
 
 s = hub.display.icon(Icon.HEART)
