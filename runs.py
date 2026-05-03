@@ -32,6 +32,7 @@ skip_done = False
 
 # Define available colors for runs
 arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.GRAY])
+arm_sensor.detectable_colors([Color.BLACK, Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.GRAY])
 
 
 #Define chassis
@@ -98,7 +99,6 @@ def onboard_diagnosis():
     "Fast (500) - Straight: ", move_error[1], " // Turn: ", turn_error[1], "\n" \
     "Ludicrous (1,000) - Straight: ", move_error[2], " // Turn: ", turn_error[2], \
     "\nMotor health:\nRight motor: ", right_arm_speed, " // Left motor: ", left_arm_speed)
-
 
 def turn_time(speed, time, p_wait: bool = True):
     right_wheel.run_time(speed , time, wait=False)
@@ -178,7 +178,9 @@ def run1():
     chassis.straight(-70)
     chassis.turn(-96)
     left_arm.run_time(-500, 1000, wait=False)
+    left_arm.run_time(-500, 1000, wait=False)
     chassis.straight(-234)
+    left_arm.run_time(500, 1000, wait=False)
     left_arm.run_time(500, 1000, wait=False)
     chassis.straight(390)
     chassis.turn(-45)
@@ -241,10 +243,12 @@ def run4():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     left_arm.run_time(-2000,2500,wait=False)
     right_arm.run_time(5000,1500,wait=False)
+    right_arm.run_time(5000,1500,wait=False)
     chassis.straight(450)
     chassis.curve(300, 45)
     chassis.turn(-90)
     drive_time(300,1500)
+    right_arm.run_time(-5000,1500)
     right_arm.run_time(-5000,1500)
     chassis.straight(-200)
     left_arm.run_time(2000,2500,wait=False)
@@ -705,25 +709,37 @@ def run_by_color():
 
     if arm_sensor.color(True) == Color.BLACK:
         hub.display.number(1)
+        hub.display.number(1)
         hub.light.on(ahsv)
         run1()
     elif arm_sensor.color(True) == Color.GRAY:
         hub.display.number(2)
         hub.light.on(ahsv)
         run2()
+    elif arm_sensor.color(True) == Color.GRAY:
+        hub.display.number(2)
+        hub.light.on(ahsv)
+        run2()
     elif arm_sensor.color(True) == Color.WHITE:
+        hub.display.number(3)
         hub.display.number(3)
         hub.light.on(ahsv)
         run3()
+        run3()
     elif arm_sensor.color() == Color.RED:
+        hub.display.number(4)
         hub.display.number(4)
         hub.light.on(ahsv)
         run4()
+        run4()
     elif arm_sensor.color() == Color.YELLOW:
+        hub.display.number(5)
         hub.display.number(5)
         hub.light.on(ahsv)
         run5()
+        run5()
     elif arm_sensor.color(True) == Color.BLUE:
+        hub.display.number(6)
         hub.display.number(6)
         hub.light.on(ahsv)
         run6()
@@ -735,6 +751,7 @@ s = hub.display.icon(Icon.HEART)
 
 
 # selected = hub_menu("R", "1", "2", "3", "4", "5","W", "C","P","D")
+selected = hub_menu("R", "#", "1", "2", "3", "4", "5","S")
 selected = hub_menu("R", "#", "1", "2", "3", "4", "5","S")
 if selected == "1":
     hub.light.blink(Color.GREEN, [300, 300])
