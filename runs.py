@@ -171,21 +171,22 @@ def run1():
     right_arm.run_time(1000, 500, wait=False)
     left_arm.run_time(1000, 700, wait=False)
     chassis.straight(605)
-    for i in range(5):
+    for i in range(4):
         right_arm.run_time(1200, 890)
         right_arm.run_time(-1200, 800)
-    chassis.straight(120)
+    chassis.straight(134)
     turn_time(90, 1000)
     sivuv(0, 300)
     chassis.straight(-60)
     chassis.turn(-95)
-    left_arm.run_time(-500, 1000, wait=False)
-    chassis.straight(-275)
+    chassis.straight(-150)
+    left_arm.run_time(-500, 1000)
+    chassis.straight(-175)
     left_arm.run_time(500, 1000, wait=False)
     chassis.settings(1000)
-    chassis.straight(350)
+    chassis.straight(400)
     chassis.turn(-90)
-    chassis.straight(780)
+    chassis.straight(1000)
 
 def run2():
     drive_time(500,1500)
@@ -263,11 +264,13 @@ def run5():
     chassis.straight(647)
     chassis.straight(-180)
     chassis.settings(100)
-    chassis.straight(70)
+    chassis.straight(75)
+    chassis.turn(-5)
     left_arm.run_time(-300, 1500)
     chassis.straight(-80)
-    chassis.settings(600)
-    chassis.straight(-1200)
+    chassis.settings(1000)
+    chassis.turn(10)
+    chassis.straight(-2000)
 
 
 def run6():
