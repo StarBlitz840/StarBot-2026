@@ -196,28 +196,31 @@ def run2():
     chassis.straight(5)
     chassis.settings(500)
     right_arm.run_time(-800, 2000)
-    chassis.straight(-90)
+    chassis.straight(-80)
     chassis.turn(30)
-    chassis.straight(75)
-    chassis.turn(-60)
+    # chassis.straight(-50)
+    # chassis.curve(400,-70,bool=False)
+    chassis.straight(110)
+    chassis.turn(-67)
+    chassis.turn(45)
     chassis.settings(1000)
     chassis.straight(-2000)
 
 def run3():
-    chassis.straight(500, then=Stop.COAST)
-    until_black(300)
-    sivuv(0, 300)
-    chassis.straight(375)
-    sivuv(-40, 300)
-    chassis.straight(-310)
-    chassis.turn(-20)
-    right_arm.run_time(500, 4000)
-    right_arm.run_time(1000, 500)
-    chassis.straight(-50)
-    chassis.turn(20)
-    chassis.straight(50)
-    right_arm.run_angle(500, 180)
-    chassis.straight(-50)
+    chassis.straight(200)
+    chassis.curve(100, 45)
+    chassis.curve(100, -45)
+    chassis.straight(400)
+    sivuv(90, -300)
+    until_black(-100)
+    chassis.straight(15)
+    chassis.turn(-10)
+    right_arm.run_time(1000, 4000)
+    sivuv(90, 300)
+    chassis.curve(170, -90)
+    chassis.settings(1000)
+    chassis.curve(1000, -90)
+    
 
 
 
@@ -261,6 +264,7 @@ def run5():
 
 def run6():
     chassis.straight(663)
+    right_arm.run_time(1000, 1000)
     chassis.settings(1000)
     chassis.straight(-1560)
 
