@@ -204,43 +204,29 @@ def run2():
     chassis.straight(-2000)
 
 def run3():
-    # chassis.settings(straight_speed=100, turn_rate=100)
-    chassis.straight(390)
-    left_arm.run_angle(1000, -500, wait=False)
-    chassis.turn(45)
-    chassis.straight(540)
-    chassis.turn(45)
-    chassis.straight(285)
-    chassis.straight(-470)
-    chassis.turn(8)
-    chassis.straight(-20)
-    chassis.turn(-15)
-    #sivuv(82, 300)
-    #panda blitz is the best team in the בונקר!!!!
-    right_arm.run_time(1000, 5000, wait=False)
-    turn_time(10, 4500)
-    sivuv(90, 300)
-    chassis.straight(105)
-    left_arm.run_time(-1000, 2000)
-    left_arm.run_time(1000, 100)
-    sivuv(66, 300)
-    chassis.straight(210)
-    left_arm.run_time(600, 2000)
-    left_arm.run_time(600, 750)
-    chassis.straight(-300)
-    left_arm.run_angle(1000, 300, wait=False)
+    chassis.straight(500, then=Stop.COAST)
+    until_black(300)
     sivuv(0, 300)
-    chassis.settings(1000)
-    chassis.straight(780)
-    chassis.turn(-60)
-    chassis.straight(780)
+    chassis.straight(375)
+    sivuv(-40, 300)
+    chassis.straight(-310)
+    chassis.turn(-20)
+    right_arm.run_time(500, 4000)
+    right_arm.run_time(1000, 500)
+    chassis.straight(-50)
+    chassis.turn(20)
+    chassis.straight(50)
+    right_arm.run_angle(500, 180)
+    chassis.straight(-50)
+
+
 
 
 def run4():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     left_arm.run_time(-2000,2500,wait=False)
     right_arm.run_time(5000,1500,wait=False)
-    chassis.straight(450)
+    chassis.straight(475)
     chassis.curve(300, 45)
     chassis.turn(-90)
     drive_time(300,1500)
@@ -415,3 +401,4 @@ if selected == "S":
             we_won()
         elif Button.BLUETOOTH in pressed:
             shubi_dubi()
+
