@@ -174,7 +174,10 @@ def run1():
     for i in range(4):
         right_arm.run_time(1200, 890)
         right_arm.run_time(-1200, 800)
-    chassis.straight(134)
+    sivuv(0, 300)
+    chassis.straight(135)
+    chassis.straight(-15)
+    sivuv(0, 300)
     turn_time(90, 1000)
     sivuv(0, 300)
     chassis.straight(-60)
@@ -193,37 +196,53 @@ def run2():
     right_arm.run_time(1000, 2000)
     drive_time(-500, 1500)
     chassis.settings(100)
-    chassis.straight(5)
+    #chassis.straight(5)
     chassis.settings(500)
-    right_arm.run_time(-800, 2000)
-    chassis.straight(-80)
-    chassis.turn(30)
+    right_arm.run_time(-900, 2000)
+    # chassis.straight(-80)
+    # chassis.turn(30)
     # chassis.straight(-50)
     # chassis.curve(400,-70,bool=False)
-    chassis.straight(110)
-    chassis.turn(-67)
-    chassis.turn(45)
+    # chassis.straight(110)
+    # chassis.turn(-67)
+    # chassis.turn(45)
+    chassis.settings(1000)
+    chassis.straight(-2000)
+    #chassis.turn(45)
+    #chassis.straight(90)
+   # chassis.turn(-67)
+    
+
+
+def run2():
+    drive_time(500,1500)
+    right_arm.run_time(1000, 2000)
+    drive_time(-500, 1500)
+    chassis.settings(100)
+    chassis.straight(5)
+    right_arm.run_time(-800, 2000)
+    turn_time(500, 1000)
+    sivuv(0, 300)
     chassis.settings(1000)
     chassis.straight(-2000)
 
 def run3():
     chassis.straight(200)
-    chassis.curve(100, 45)
-    chassis.curve(100, -45)
-    chassis.straight(400)
-    sivuv(90, -300)
+    chassis.curve(140, 45)
+    chassis.curve(140, -45)
+    chassis.straight(150)
+    until_black(300)
+    sivuv(88, -300)
     until_black(-100)
     chassis.straight(15)
-    chassis.turn(-10)
-    right_arm.run_time(1000, 4000)
+    chassis.settings(500)
+    right_arm.run_time(1000, 6000, wait=False)
+    turn_time(10, 6000)
     sivuv(90, 300)
-    chassis.curve(170, -90)
+    chassis.turn(5)
+    chassis.curve(130, -90)
     chassis.settings(1000)
-    chassis.curve(1000, -90)
-    
-
-
-
+    chassis.curve(800, -90)
 
 def run4():
     # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
@@ -248,7 +267,6 @@ def run4():
     chassis.curve(-300, 90, then=Stop.NONE)
     chassis.straight(-1000)
 
-
 def run5():
     chassis.straight(647)
     chassis.straight(-180)
@@ -260,7 +278,6 @@ def run5():
     chassis.settings(1000)
     chassis.turn(10)
     chassis.straight(-2000)
-
 
 def run6():
     chassis.straight(663)
