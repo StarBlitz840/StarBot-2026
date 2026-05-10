@@ -194,14 +194,16 @@ def run1():
 def run2():
     drive_time(500,1500)
     right_arm.run_time(1000, 2000)
-    drive_time(-500, 1500)
-    chassis.settings(100)
-    chassis.straight(50, wait=False)
-    right_arm.run_time(-800, 2000)
-    chassis.settings(500)
+    drive_time(-1000, 1500)
+    chassis.straight(1)
+    right_arm.run_time(-1000, 2000)
+    # right_arm.run_time(-1000, 2000)
+    # chassis.settings(100)
+    # chassis.straight(50, wait=False)
+    # right_arm.run_time(-800, 2000)
+    # chassis.settings(500)
     # turn_time(500, 1000)
     # sivuv(0, 300)
-    right_arm.run_time(-800, 2000)
     chassis.settings(1000)
     chassis.straight(-2000)
 
@@ -224,7 +226,7 @@ def run3():
     chassis.curve(800, -90)
 
 def run4():
-    # This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
+    # This run completes Mineshaft Explorer (3) and Map Reveal (2).
     left_arm.run_time(-2000,2500,wait=False)
     right_arm.run_time(5000,1500,wait=False)
     chassis.straight(475)
