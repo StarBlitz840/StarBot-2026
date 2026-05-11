@@ -168,15 +168,16 @@ def shubi_dubi():
 
 def run1():
     global sivuv
+    left_arm.run_time(1000, 1500)
     right_arm.run_time(1000, 500, wait=False)
-    left_arm.run_time(1000, 700, wait=False)
     chassis.straight(605)
     for i in range(4):
         right_arm.run_time(1200, 890)
         right_arm.run_time(-1200, 800)
     sivuv(0, 300)
-    chassis.straight(135)
-    chassis.straight(-15)
+    chassis.curve(1200, 10)
+    if map_sensor.reflection() >= 12:
+        chassis.straight(-10)
     sivuv(0, 300)
     turn_time(90, 1000)
     sivuv(0, 300)
@@ -249,16 +250,20 @@ def run4():
     chassis.straight(-1000)
 
 def run5():
+    left_arm.run_time(300, 1500, wait=None)
     chassis.straight(647)
     chassis.straight(-180)
     chassis.settings(100)
     chassis.straight(75)
-    chassis.turn(-5)
+    chassis.turn(-7)
     left_arm.run_time(-300, 1500)
-    chassis.straight(-80)
+    #chassis.straight(-80)
     chassis.settings(1000)
-    chassis.turn(10)
-    chassis.straight(-2000)
+    #chassis.turn(45)
+    #chassis.turn(-45)
+    #chassis.straight(-750)
+    chassis.curve(-300, -90, then=Stop.NONE)
+    left_arm.run_time(300, 1500)
 
 def run6():
     chassis.straight(663)
