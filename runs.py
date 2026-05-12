@@ -117,7 +117,7 @@ def sivuv(angle, speed):
     chassis.turn(dana)
 
 
-def until_black(p_speed, max_time: int = 10000):
+def until_black(p_speed, max_dist: int = 10000):
     # This function moves the robot until it is over a black line.
     chassis.drive(p_speed, 0)
     # Main loop, constantly checking if said condition is met.
@@ -126,6 +126,19 @@ def until_black(p_speed, max_time: int = 10000):
             chassis.stop()
             break
     chassis.stop()
+
+
+def until_white(p_speed, max_dist: int = 10000):
+    # This function moves the robot until it is over a white line.
+    chassis.drive(p_speed, 0)
+    # Main loop, constantly checking if said condition is met.
+    while True:
+        print(map_sensor.reflection())
+        if map_sensor.reflection() > 90:
+            chassis.stop()
+            break
+    chassis.stop()
+
 
 
 def color_on():
@@ -210,19 +223,29 @@ def run2():
 
 def run3():
     chassis.straight(200)
-    chassis.curve(140, 45)
-    chassis.curve(140, -45)
-    chassis.straight(150)
-    until_black(300)
+    chassis.curve(250, 45)
+    chassis.curve(250, -45)
+    chassis.straight(175)
+    until_black(100)
     sivuv(88, -300)
     until_black(-100)
     chassis.straight(15)
     chassis.settings(500)
     right_arm.run_time(1000, 6000, wait=False)
-    turn_time(10, 6000)
+    turn_time(25, 6000)
     sivuv(90, 300)
     chassis.turn(5)
-    chassis.curve(130, -90)
+    chassis.straight(130)
+    sivuv(0, 300)
+    wait(350)
+    chassis.straight(-25)
+    chassis.turn(40)
+    chassis.straight(225)
+    left_arm.run_time(-1000, 3000)
+    turn_time(-500, 2500)
+    turn_time(500, 2500)
+    chassis.straight(-200)
+    sivuv(0, 300)
     chassis.settings(1000)
     chassis.curve(800, -90)
 
@@ -261,8 +284,8 @@ def run5():
     chassis.settings(1000)
     #chassis.turn(45)
     #chassis.turn(-45)
-    #chassis.straight(-750)
-    chassis.curve(-300, -90, then=Stop.NONE)
+    chassis.straight(-100)
+    chassis.curve(-400, -90, then=Stop.NONE)
     left_arm.run_time(300, 1500)
 
 def run6():
