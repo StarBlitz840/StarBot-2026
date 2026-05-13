@@ -179,24 +179,100 @@ def shubi_dubi():
     hub.display.text("Shubi Dubi and The Cool Guy...")
 
 
+def gyro_turn(
+    target,
+    max_rate=1000,
+    kp=5.0,
+    kd=0.6,
+    ke=20,
+    angle_tol=0.3,
+    speed_tol=100,
+    max_time=2670,
+):
+    """Turn the robot to a target heading using gyro-based PD control.
+    
+    Uses the IMU gyroscope and PD (proportional-derivative) control with a static
+    bias to overcome motor friction and achieve precise heading control.
+    
+    Args:
+        target (float): Target heading in degrees.
+        max_rate (int): Maximum turn rate in degrees/second (default 1000).
+        kp (float): Proportional gain constant (default 5.0).
+        kd (float): Derivative gain constant (default 0.6).
+        ke (int): Static bias to overcome motor friction (default 20).
+        angle_tol (float): Angle tolerance threshold in degrees (default 0.3).
+        speed_tol (int): Turn rate tolerance threshold (default 100).
+        max_time (int): Maximum time to attempt turn in milliseconds (default 2670).
+    """
+
+    last_error = 0
+    timer = StopWatch()
+    timer.reset()
+
+    last_time = timer.time()
+
+    while timer.time() < max_time:
+        current = hub.imu.heading()
+
+        # Shortest angle wraparound
+        error = ((target - current + 180) % 360) - 180
+
+        # Real dt
+        now = timer.time()
+        dt = (now - last_time) / 1000.0  # convert ms to seconds
+        last_time = now
+
+        if dt == 0:
+            dt = 0.001  # avoid division by zero
+
+        # PD control
+        d_error = (error - last_error) / dt
+        turn_rate = kp * error + kd * d_error
+
+        # Add static bias to overcome motor deadzone
+        if turn_rate > 0:
+            turn_rate += ke
+        elif turn_rate < 0:
+            turn_rate -= ke
+
+        # Clamp turn rate
+        turn_rate = max(-max_rate, min(max_rate, turn_rate))
+
+        chassis.drive(0, turn_rate)
+
+        # Exit condition: close enough and slow enough
+        if abs(error) < angle_tol and abs(turn_rate) < speed_tol:
+            break
+
+        last_error = error
+        wait(10)  # smaller wait for faster updates
+    print(timer.time())
+    chassis.stop()
+    wait(200)
+
 def run1():
     global sivuv
-    left_arm.run_time(1000, 1500)
+    left_arm.run_time(300, 2000, wait=False)
     right_arm.run_time(1000, 500, wait=False)
     chassis.straight(605)
     for i in range(4):
         right_arm.run_time(1200, 890)
         right_arm.run_time(-1200, 800)
-    sivuv(0, 300)
-    chassis.curve(1200, 10)
-    if map_sensor.reflection() >= 12:
-        chassis.straight(-10)
-    sivuv(0, 300)
-    turn_time(90, 1000)
-    sivuv(0, 300)
+    # sivuv(0, 300)
+    # chassis.curve(1200, 10)
+    # if map_sensor.reflection() >= 12:
+    #     chassis.straight(-10)
+    # sivuv(0, 300)
+    # turn_time(90, 1000)
+    # sivuv(0, 300)
+    gyro_turn(0)
+    chassis.straight(50)
+    drive_time(200, 2000)
+    turn_time(200, 2000)
     chassis.straight(-60)
-    chassis.turn(-95)
+    gyro_turn(-90)
     chassis.straight(-150)
+    right_arm.run_time(-1000, 1000, wait=False)
     left_arm.run_time(-500, 1000)
     chassis.straight(-175)
     left_arm.run_time(500, 1000, wait=False)
@@ -258,13 +334,15 @@ def run4():
     chassis.turn(-90)
     drive_time(300,1500)
     right_arm.run_time(-5000,1500)
-    chassis.straight(-200)
+    chassis.straight(-180)
     left_arm.run_time(2000,2500,wait=False)
     chassis.turn(135)
-    chassis.straight(370)
-    chassis.turn(-90)
-    chassis.straight(40)
-    left_arm.run_time(-2000,2500)
+    chassis.straight(280)
+    gyro_turn(90)
+    chassis.curve(67, -90)
+    # chassis.turn(-90)
+    # chassis.straight(40)
+    left_arm.run_time(-4000,2500)
     left_arm.run_time(3000,1500)
     chassis.turn(90)
     chassis.straight(-170)
@@ -431,4 +509,3 @@ if selected == "S":
             we_won()
         elif Button.BLUETOOTH in pressed:
             shubi_dubi()
-
