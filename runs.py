@@ -110,6 +110,7 @@ def turn_time(speed, time, p_wait: bool = True):
 def drive_time(speed, time):
     chassis.drive(speed,0)
     wait(time)
+    chassis.stop()
 
 
 def sivuv(angle, speed):
@@ -284,26 +285,23 @@ def run1():
     chassis.straight(1000)
     
 def run2():
-    drive_time(500,1500)
-    right_arm.run_time(1000, 2000)
-    drive_time(-1000, 1500)
-    chassis.straight(1)
+    drive_time(500, 1500)
+    right_arm.run_time(1000, 3000)
+    chassis.straight(-310)
+    chassis.straight(50)
     right_arm.run_time(-1000, 2000)
-    # right_arm.run_time(-1000, 2000)
-    # chassis.settings(100)
-    # chassis.straight(50, wait=False)
-    # right_arm.run_time(-800, 2000)
-    # chassis.settings(500)
-    # turn_time(500, 1000)
-    # sivuv(0, 300)
+    right_arm.run_time(-800, 2000)
+    turn_time(500, 1000)
+    chassis.straight(-20)
+    sivuv(0, 300)
     chassis.settings(1000)
     chassis.straight(-2000)
 
 def run3():
     chassis.straight(200)
-    chassis.curve(250, 45)
-    chassis.curve(250, -45)
-    chassis.straight(175)
+    chassis.curve(325, 45)
+    chassis.curve(325, -45)
+    chassis.straight(100)
     until_black(100)
     sivuv(88, -300)
     until_black(-100)
@@ -328,29 +326,26 @@ def run3():
     chassis.curve(800, -90)
 
 def run4():
-    # This run completes Mineshaft Explorer (3) and Map Reveal (2).
+# This run completes Mineshaft Explorer (3) and partially completes Map Reveal (2).
     left_arm.run_time(-2000,2500,wait=False)
     right_arm.run_time(5000,1500,wait=False)
-    chassis.straight(485)
+    chassis.straight(500)
     chassis.curve(300, 45)
     chassis.turn(-90)
     drive_time(300,1500)
     right_arm.run_time(-5000,1500)
-    chassis.settings(500, 375)
-    chassis.straight(-180)
-    gyro_turn(-90)
-    chassis.straight(-375)
-    # chassis.curve(50, -90)
-    chassis.turn(90)
-    chassis.straight(-100)
-    left_arm.run_time(2000,2500)
-    chassis.straight(115)
-    left_arm.run_time(-4000,2500)
+    chassis.straight(-200)
+    left_arm.run_time(2000,2500,wait=False)
+    chassis.turn(135)
+    chassis.straight(370)
+    chassis.turn(-90)
+    chassis.straight(40)
+    left_arm.run_time(-2000,2500)
     left_arm.run_time(3000,1500)
     chassis.turn(90)
     chassis.straight(-170)
     chassis.settings(1000)
-    chassis.curve(-290, 90, then=Stop.NONE)
+    chassis.curve(-300, 90, then=Stop.NONE)
     chassis.straight(-1000)
 
 def run5():
